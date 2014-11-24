@@ -1,0 +1,4 @@
+com.foundationdb.sql.parser.FetchStatementNode@667cbde6
+name: pc
+count: 2
+statementType: FETCH

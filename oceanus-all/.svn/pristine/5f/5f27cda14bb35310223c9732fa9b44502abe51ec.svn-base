@@ -1,0 +1,33 @@
+com.foundationdb.sql.parser.AlterTableNode@5289cf1e
+name: t2
+statementType: ALTER TABLE
+objectName: t2
+compressTable: false
+sequential: false
+truncateTable: false
+purge: false
+defragment: false
+truncateEndOfTable: false
+updateStatistics: false
+updateStatisticsAll: false
+indexNameForUpdateStatistics: null
+tableElementList: 	
+	com.foundationdb.sql.parser.TableElementList@557ce4e7
+
+	[0]:	
+	com.foundationdb.sql.parser.ConstraintDefinitionNode@7a982589
+	constraintName: p
+	constraintType: PRIMARY_KEY
+	properties: null
+	name: p
+	elementType: AT_DROP_CONSTRAINT
+	columnList: 		
+		com.foundationdb.sql.parser.ResultColumnList@1ac88440
+
+		[0]:		
+		com.foundationdb.sql.parser.ResultColumn@6262937c
+		exposedName: c3
+		name: c3
+		tableName: null
+		isDefaultColumn: false
+		type: null

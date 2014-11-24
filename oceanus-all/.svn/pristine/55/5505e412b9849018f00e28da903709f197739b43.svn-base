@@ -1,0 +1,8 @@
+com.foundationdb.sql.parser.CreateAliasNode@77925ae
+aliasType: PROCEDURE
+aliasInfo: (IN x INTEGER, OUT y DOUBLE) LANGUAGE java PARAMETER STYLE java
+createOrReplace: false
+javaClassName: com.foundationdb.ProcTest
+methodName: fooBar
+name: test.foo_bar
+statementType: CREATE PROCEDURE

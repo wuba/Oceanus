@@ -1,0 +1,30 @@
+com.foundationdb.sql.parser.CursorNode@6b4bd192
+name: null
+updateMode: UNSPECIFIED
+statementType: SELECT
+resultSet: 	
+	com.foundationdb.sql.parser.SelectNode@3eabff46
+	isDistinct: false
+	resultColumns: 		
+		com.foundationdb.sql.parser.ResultColumnList@e046ccf
+
+		[0]:		
+		com.foundationdb.sql.parser.ResultColumn@44839139
+		exposedName: null
+		name: null
+		tableName: null
+		isDefaultColumn: false
+		type: null
+		expression: 			
+			com.foundationdb.sql.parser.InListOperatorNode@19b35853
+			operator: IN
+			methodName: in
+			type: null
+			leftOperand: 				
+				com.foundationdb.sql.parser.RowConstructorNode@4d6bbe53
+				depth: 2
+			rightOperandList: 				
+				com.foundationdb.sql.parser.RowConstructorNode@5c9c62da
+				depth: 3
+	fromList: 		
+		com.foundationdb.sql.parser.FromList@1f1e05b6

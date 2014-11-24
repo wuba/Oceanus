@@ -1,0 +1,20 @@
+com.foundationdb.sql.parser.AlterTableNode@71172d81
+name: t
+statementType: ALTER TABLE
+objectName: t
+compressTable: false
+sequential: false
+truncateTable: false
+purge: false
+defragment: false
+truncateEndOfTable: false
+updateStatistics: false
+updateStatisticsAll: false
+indexNameForUpdateStatistics: null
+tableElementList: 	
+	com.foundationdb.sql.parser.TableElementList@28acaa28
+
+	[0]:	
+	com.foundationdb.sql.parser.AlterTableRenameColumnNode@5fd73cf4
+	name: c
+	elementType: AT_RENAME_COLUMN

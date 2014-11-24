@@ -1,0 +1,29 @@
+com.foundationdb.sql.parser.DeleteNode@2d8941f7
+statementType: DELETE
+resultSet: 	
+	com.foundationdb.sql.parser.SelectNode@e49d67c
+	isDistinct: false
+	fromList: 		
+		com.foundationdb.sql.parser.FromList@11a06e38
+
+		[0]:		
+		com.foundationdb.sql.parser.FromBaseTable@3ba42792
+		tableName: t1
+		updateOrDelete: DELETE
+		null
+		correlation Name: null
+		null
+targetTableName: 	
+	com.foundationdb.sql.parser.TableName@e3d
+	t1
+returningList: 	
+	com.foundationdb.sql.parser.ResultColumnList@162200d5
+
+	[0]:	
+	com.foundationdb.sql.parser.AllResultColumn@1264ab4d
+	tableName: null
+	exposedName: null
+	name: null
+	tableName: null
+	isDefaultColumn: false
+	type: null

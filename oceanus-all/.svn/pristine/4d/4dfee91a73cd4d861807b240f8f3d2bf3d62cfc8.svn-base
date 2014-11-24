@@ -1,0 +1,5 @@
+com.foundationdb.sql.parser.DropSequenceNode@16bdb503
+name: test.bad_sequence
+statementType: DROP SEQUENCE bad_sequence
+dropBehavior: 1
+existenceCheck: NO_CONDITION

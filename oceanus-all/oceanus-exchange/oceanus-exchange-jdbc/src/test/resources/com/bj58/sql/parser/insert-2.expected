@@ -1,0 +1,57 @@
+com.foundationdb.sql.parser.InsertNode@3abc8e1e
+statementType: INSERT
+resultSet: 	
+	com.foundationdb.sql.parser.SelectNode@3f829e6f
+	isDistinct: false
+	resultColumns: 		
+		com.foundationdb.sql.parser.ResultColumnList@186fa9fc
+
+		[0]:		
+		com.foundationdb.sql.parser.ResultColumn@4b00ebec
+		exposedName: x
+		name: x
+		tableName: null
+		isDefaultColumn: false
+		type: null
+		expression: 			
+			com.foundationdb.sql.parser.ColumnReference@2980f96c
+			columnName: x
+			tableName: null
+			type: null
+		[1]:		
+		com.foundationdb.sql.parser.ResultColumn@527736bd
+		exposedName: y
+		name: y
+		tableName: null
+		isDefaultColumn: false
+		type: null
+		expression: 			
+			com.foundationdb.sql.parser.ColumnReference@10aadc97
+			columnName: y
+			tableName: null
+			type: null
+		[2]:		
+		com.foundationdb.sql.parser.ResultColumn@4178460d
+		exposedName: z
+		name: z
+		tableName: null
+		isDefaultColumn: false
+		type: null
+		expression: 			
+			com.foundationdb.sql.parser.ColumnReference@3f3f210f
+			columnName: z
+			tableName: null
+			type: null
+	fromList: 		
+		com.foundationdb.sql.parser.FromList@49938039
+
+		[0]:		
+		com.foundationdb.sql.parser.FromBaseTable@72c743eb
+		tableName: t
+		updateOrDelete: null
+		null
+		correlation Name: null
+		null
+targetTableName: 	
+	com.foundationdb.sql.parser.TableName@e3d
+	t1

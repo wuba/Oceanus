@@ -1,0 +1,100 @@
+com.foundationdb.sql.parser.InsertNode@7632efa7
+statementType: INSERT
+resultSet: 	
+	com.foundationdb.sql.parser.RowResultSetNode@6825c828
+	correlation Name: null
+	null
+	resultColumns: 		
+		com.foundationdb.sql.parser.ResultColumnList@877ef83
+
+		[0]:		
+		com.foundationdb.sql.parser.ResultColumn@7a0d85cc
+		exposedName: null
+		name: null
+		tableName: null
+		isDefaultColumn: true
+		type: null
+		expression: 			
+			com.foundationdb.sql.parser.DefaultNode@dcb52ae
+			columnName: null
+			defaultText: null
+			type: null
+		[1]:		
+		com.foundationdb.sql.parser.ResultColumn@1fa12495
+		exposedName: null
+		name: null
+		tableName: null
+		isDefaultColumn: false
+		type: null
+		expression: 			
+			com.foundationdb.sql.parser.CharConstantNode@c68c26c
+			value: fred
+			type: CHAR(4) NOT NULL
+		[2]:		
+		com.foundationdb.sql.parser.ResultColumn@31b446d1
+		exposedName: null
+		name: null
+		tableName: null
+		isDefaultColumn: false
+		type: null
+		expression: 			
+			com.foundationdb.sql.parser.CharConstantNode@32955cd5
+			value: last
+			type: CHAR(4) NOT NULL
+targetTableName: 	
+	com.foundationdb.sql.parser.TableName@e3d
+	t1
+returningList: 	
+	com.foundationdb.sql.parser.ResultColumnList@6c01bde4
+
+	[0]:	
+	com.foundationdb.sql.parser.ResultColumn@6659fb21
+	exposedName: id
+	name: id
+	tableName: null
+	isDefaultColumn: false
+	type: null
+	expression: 		
+		com.foundationdb.sql.parser.ColumnReference@1d766806
+		columnName: id
+		tableName: null
+		type: null
+targetColumnList: 	
+	com.foundationdb.sql.parser.ResultColumnList@48a77106
+
+	[0]:	
+	com.foundationdb.sql.parser.ResultColumn@68ed662d
+	exposedName: id
+	name: id
+	tableName: null
+	isDefaultColumn: false
+	type: null
+	reference: 		
+		com.foundationdb.sql.parser.ColumnReference@39cf4a2c
+		columnName: id
+		tableName: null
+		type: null
+	[1]:	
+	com.foundationdb.sql.parser.ResultColumn@580eac5a
+	exposedName: name
+	name: name
+	tableName: null
+	isDefaultColumn: false
+	type: null
+	reference: 		
+		com.foundationdb.sql.parser.ColumnReference@2b5575e0
+		columnName: name
+		tableName: null
+		type: null
+	[2]:	
+	com.foundationdb.sql.parser.ResultColumn@77addb59
+	exposedName: last_value
+	name: last_value
+	tableName: null
+	isDefaultColumn: false
+	type: null
+	reference: 		
+		com.foundationdb.sql.parser.ColumnReference@371bed71
+		columnName: last_value
+		tableName: null
+		type: null

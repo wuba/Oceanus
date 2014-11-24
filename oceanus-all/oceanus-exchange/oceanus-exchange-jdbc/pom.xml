@@ -1,0 +1,44 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.bj58</groupId>
+		<artifactId>oceanus-exchange</artifactId>
+		<version>0.0.2-SNAPSHOT</version>
+	</parent>
+	<artifactId>oceanus-exchange-jdbc</artifactId>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.bj58</groupId>
+			<artifactId>oceanus-core</artifactId>
+			<version>0.0.2-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.bj58</groupId>
+			<artifactId>oceanus-exchange-sqlparser</artifactId>
+			<version>0.0.2-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.bj58</groupId>
+			<artifactId>oceanus-exchange-router</artifactId>
+			<version>0.0.2-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.6</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>16.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-jdbc</artifactId>
+			<version>8.0.3</version>
+		</dependency> 
+	</dependencies>
+</project>

@@ -1,0 +1,10 @@
+com.foundationdb.sql.parser.CreateSequenceNode@2ddf191
+name: s
+statementType: CREATE SEQUENCE
+sequenceName: s
+dataType: null
+startWith: 10
+incrementBy: null
+maxValue: null
+minValue: null
+isCycle: false

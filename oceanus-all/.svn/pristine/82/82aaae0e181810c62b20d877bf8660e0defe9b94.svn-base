@@ -1,0 +1,24 @@
+com.foundationdb.sql.parser.AlterTableNode@1327b0d2
+name: t3
+statementType: ALTER TABLE
+objectName: t3
+compressTable: false
+sequential: false
+truncateTable: false
+purge: false
+defragment: false
+truncateEndOfTable: false
+updateStatistics: false
+updateStatisticsAll: false
+indexNameForUpdateStatistics: null
+tableElementList: 	
+	com.foundationdb.sql.parser.TableElementList@12c9b4d1
+
+	[0]:	
+	com.foundationdb.sql.parser.ConstraintDefinitionNode@787e0ef9
+	constraintName: chk
+	constraintType: DROP
+	verifyType: CHECK
+	properties: null
+	name: chk
+	elementType: AT_DROP_CONSTRAINT

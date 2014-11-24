@@ -1,0 +1,8 @@
+com.foundationdb.sql.parser.CreateAliasNode@114beb40
+aliasType: PROCEDURE
+aliasInfo: () LANGUAGE java PARAMETER STYLE foundationdb_loadable_plan
+createOrReplace: false
+javaClassName: com.foundationdb
+methodName: PlanTest
+name: test.foo_baz
+statementType: CREATE PROCEDURE

@@ -1,0 +1,7 @@
+com.foundationdb.sql.parser.RenameNode@151ca803
+name: s.x
+statementType: RENAME INDEX
+oldIndexName:
+iold
+newIndexName: 
+inew

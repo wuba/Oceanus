@@ -1,0 +1,35 @@
+com.foundationdb.sql.parser.InsertNode@3d73d62d
+statementType: INSERT
+resultSet: 	
+	com.foundationdb.sql.parser.RowResultSetNode@7ff243df
+	correlation Name: null
+	null
+	resultColumns: 		
+		com.foundationdb.sql.parser.ResultColumnList@7a462718
+
+		[0]:		
+		com.foundationdb.sql.parser.ResultColumn@13b0d75f
+		exposedName: null
+		name: null
+		tableName: null
+		isDefaultColumn: true
+		type: null
+		expression: 			
+			com.foundationdb.sql.parser.DefaultNode@3f0ba812
+			columnName: null
+			defaultText: null
+			type: null
+targetTableName: 	
+	com.foundationdb.sql.parser.TableName@e3d
+	t1
+returningList: 	
+	com.foundationdb.sql.parser.ResultColumnList@16475614
+
+	[0]:	
+	com.foundationdb.sql.parser.AllResultColumn@25644679
+	tableName: null
+	exposedName: null
+	name: null
+	tableName: null
+	isDefaultColumn: false
+	type: null

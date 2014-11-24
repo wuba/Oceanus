@@ -1,0 +1,10 @@
+com.foundationdb.sql.parser.CreateSchemaNode@44f53eb
+statementType: CREATE SCHEMA
+schemaName: 
+stringy
+authorizationId: 
+null
+defaultChar: 
+CHARACTER SET latin1 COLLATE fr_FR
+existenceCheck:
+NO_CONDITION

@@ -1,0 +1,9 @@
+com.foundationdb.sql.parser.DeclareStatementNode@739e8329
+name: pc
+statementType: DECLARE
+statement: 	
+	com.foundationdb.sql.parser.ExecuteStatementNode@2bb5340c
+	name: ps
+	statementType: EXECUTE
+	parameterList: 		
+		com.foundationdb.sql.parser.ValueNodeList@56c163f

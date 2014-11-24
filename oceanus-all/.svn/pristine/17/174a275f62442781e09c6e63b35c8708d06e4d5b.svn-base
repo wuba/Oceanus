@@ -1,0 +1,1 @@
+com.foundationdb.sql.StandardException: Auto increment column not allowed in ALTER TABLE

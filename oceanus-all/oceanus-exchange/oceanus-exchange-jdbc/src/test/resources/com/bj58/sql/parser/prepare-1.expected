@@ -1,0 +1,50 @@
+com.foundationdb.sql.parser.PrepareStatementNode@46edf730
+name: ps
+statementType: PREPARE
+statement: 	
+	com.foundationdb.sql.parser.CursorNode@30ff94b1
+	name: null
+	updateMode: UNSPECIFIED
+	statementType: SELECT
+	resultSet: 		
+		com.foundationdb.sql.parser.SelectNode@5b7b0998
+		isDistinct: false
+		resultColumns: 			
+			com.foundationdb.sql.parser.ResultColumnList@6ab30913
+
+			[0]:			
+			com.foundationdb.sql.parser.ResultColumn@1018f51f
+			exposedName: name
+			name: name
+			tableName: null
+			isDefaultColumn: false
+			type: null
+			expression: 				
+				com.foundationdb.sql.parser.ColumnReference@5684ce7a
+				columnName: name
+				tableName: null
+				type: null
+		fromList: 			
+			com.foundationdb.sql.parser.FromList@290fd7f6
+
+			[0]:			
+			com.foundationdb.sql.parser.FromBaseTable@4f2b6c89
+			tableName: customers
+			updateOrDelete: null
+			null
+			correlation Name: null
+			null
+		whereClause: 			
+			com.foundationdb.sql.parser.BinaryRelationalOperatorNode@2be2befa
+			operator: =
+			methodName: equals
+			type: null
+			leftOperand: 				
+				com.foundationdb.sql.parser.ColumnReference@33682598
+				columnName: cid
+				tableName: null
+				type: null
+			rightOperand: 				
+				com.foundationdb.sql.parser.ParameterNode@7a7c3885
+				number: 0
+				type: null

@@ -1,0 +1,14 @@
+com.foundationdb.sql.parser.ExecuteStatementNode@789934d4
+name: ps
+statementType: EXECUTE
+parameterList: 	
+	com.foundationdb.sql.parser.ValueNodeList@125b8827
+
+	[0]:	
+	com.foundationdb.sql.parser.NumericConstantNode@3747c1db
+	value: 100
+	type: INTEGER NOT NULL
+	[1]:	
+	com.foundationdb.sql.parser.CharConstantNode@48082d37
+	value: Smith
+	type: CHAR(5) NOT NULL

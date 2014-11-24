@@ -1,0 +1,83 @@
+com.foundationdb.sql.parser.CursorNode@3af42ad0
+name: null
+updateMode: UNSPECIFIED
+statementType: SELECT
+resultSet: 	
+	com.foundationdb.sql.parser.SelectNode@7426dbec
+	isDistinct: false
+	resultColumns: 		
+		com.foundationdb.sql.parser.ResultColumnList@23309e87
+
+		[0]:		
+		com.foundationdb.sql.parser.AllResultColumn@4cf7c31d
+		tableName: null
+		exposedName: null
+		name: null
+		tableName: null
+		isDefaultColumn: false
+		type: null
+	fromList: 		
+		com.foundationdb.sql.parser.FromList@1e2acc65
+
+		[0]:		
+		com.foundationdb.sql.parser.FromBaseTable@bd10a5c
+		tableName: t
+		updateOrDelete: null
+		null
+		correlation Name: null
+		null
+	whereClause: 		
+		com.foundationdb.sql.parser.OrNode@48ff2413
+		operator: or
+		methodName: or
+		type: null
+		leftOperand: 			
+			com.foundationdb.sql.parser.BinaryRelationalOperatorNode@669980d5
+			operator: >
+			methodName: greaterThan
+			type: null
+			leftOperand: 				
+				com.foundationdb.sql.parser.ColumnReference@67d95492
+				columnName: x
+				tableName: null
+				type: null
+			rightOperand: 				
+				com.foundationdb.sql.parser.ColumnReference@6d3f7281
+				columnName: y
+				tableName: null
+				type: null
+		rightOperand: 			
+			com.foundationdb.sql.parser.AndNode@6076ab2f
+			operator: and
+			methodName: and
+			type: null
+			leftOperand: 				
+				com.foundationdb.sql.parser.BinaryRelationalOperatorNode@ee0cc23
+				operator: <
+				methodName: lessThan
+				type: null
+				leftOperand: 					
+					com.foundationdb.sql.parser.ColumnReference@487a1576
+					columnName: y
+					tableName: null
+					type: null
+				rightOperand: 					
+					com.foundationdb.sql.parser.ColumnReference@47171b26
+					columnName: z
+					tableName: null
+					type: null
+			rightOperand: 				
+				com.foundationdb.sql.parser.BinaryRelationalOperatorNode@3df78040
+				operator: <>
+				methodName: notEquals
+				type: null
+				leftOperand: 					
+					com.foundationdb.sql.parser.ColumnReference@44050988
+					columnName: x
+					tableName: null
+					type: null
+				rightOperand: 					
+					com.foundationdb.sql.parser.ColumnReference@26b4e29b
+					columnName: z
+					tableName: null
+					type: null

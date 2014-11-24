@@ -1,0 +1,5 @@
+com.foundationdb.sql.parser.AlterServerNode@46e45076
+statementType: ALTER SERVER
+variable: cbo
+value: null
+statementType: SET cbo

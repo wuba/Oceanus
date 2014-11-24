@@ -1,0 +1,18 @@
+com.foundationdb.sql.parser.DeleteNode@3c76ced6
+statementType: DELETE
+resultSet: 	
+	com.foundationdb.sql.parser.SelectNode@1c05629d
+	isDistinct: false
+	fromList: 		
+		com.foundationdb.sql.parser.FromList@258d3fca
+
+		[0]:		
+		com.foundationdb.sql.parser.FromBaseTable@5c56fa08
+		tableName: t
+		updateOrDelete: DELETE
+		null
+		correlation Name: null
+		null
+targetTableName: 	
+	com.foundationdb.sql.parser.TableName@74
+	t

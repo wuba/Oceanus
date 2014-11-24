@@ -1,0 +1,4 @@
+com.foundationdb.sql.parser.AlterServerNode@442a15cd
+statementType: ALTER SERVER
+sessionType: DISCONNECT_SESSION
+sessionID: null

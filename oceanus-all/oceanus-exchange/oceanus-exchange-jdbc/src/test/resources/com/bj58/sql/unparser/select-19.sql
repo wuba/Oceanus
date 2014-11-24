@@ -1,0 +1,1 @@
+select t.* from t

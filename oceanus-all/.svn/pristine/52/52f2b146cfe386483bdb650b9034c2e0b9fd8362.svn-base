@@ -1,0 +1,21 @@
+com.foundationdb.sql.parser.AlterTableNode@267fbe19
+name: t
+statementType: ALTER TABLE
+objectName: t
+compressTable: false
+sequential: false
+truncateTable: false
+purge: false
+defragment: false
+truncateEndOfTable: false
+updateStatistics: false
+updateStatisticsAll: false
+indexNameForUpdateStatistics: null
+tableElementList: 	
+	com.foundationdb.sql.parser.TableElementList@c996f0e
+
+	[0]:	
+	com.foundationdb.sql.parser.ColumnDefinitionNode@2d4a0698
+	type: DOUBLE
+	name: c
+	elementType: null

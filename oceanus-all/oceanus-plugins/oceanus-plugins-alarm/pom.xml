@@ -1,0 +1,19 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.bj58</groupId>
+		<artifactId>oceanus-plugins</artifactId>
+		<version>0.0.2-SNAPSHOT</version>
+	</parent>
+	
+	<artifactId>oceanus-plugins-alarm</artifactId>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.bj58</groupId>
+			<artifactId>oceanus-core</artifactId>
+			<version>0.0.2-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+</project>

@@ -1,0 +1,4 @@
+com.foundationdb.sql.parser.SQLParserException: Encountered " <IDENTIFIER> "idx1 "" at line 1, column 17.
+Was expecting:
+    "not" ...
+    

@@ -1,0 +1,1 @@
+com.foundationdb.sql.parser.SQLParserException: Lexical error at line 1, column 3.  Encountered: <EOF> after : "!!"

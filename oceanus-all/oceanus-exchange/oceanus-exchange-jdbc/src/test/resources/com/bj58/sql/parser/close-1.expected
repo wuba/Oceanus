@@ -1,0 +1,3 @@
+com.foundationdb.sql.parser.CloseStatementNode@6baa9f99
+name: curs
+statementType: CLOSE

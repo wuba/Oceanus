@@ -1,0 +1,54 @@
+com.foundationdb.sql.parser.InsertNode@4e76fba0
+statementType: INSERT
+resultSet: 	
+	com.foundationdb.sql.parser.RowResultSetNode@60491c4c
+	correlation Name: null
+	null
+	resultColumns: 		
+		com.foundationdb.sql.parser.ResultColumnList@5fe0f2f6
+
+		[0]:		
+		com.foundationdb.sql.parser.ResultColumn@296f25a7
+		exposedName: null
+		name: null
+		tableName: null
+		isDefaultColumn: false
+		type: null
+		expression: 			
+			com.foundationdb.sql.parser.NumericConstantNode@40110c31
+			value: 1
+			type: INTEGER NOT NULL
+		[1]:		
+		com.foundationdb.sql.parser.ResultColumn@1f3785d3
+		exposedName: null
+		name: null
+		tableName: null
+		isDefaultColumn: false
+		type: null
+		expression: 			
+			com.foundationdb.sql.parser.CharConstantNode@7632efa7
+			value: foo
+			type: CHAR(3) NOT NULL
+		[2]:		
+		com.foundationdb.sql.parser.ResultColumn@a13f991
+		exposedName: null
+		name: null
+		tableName: null
+		isDefaultColumn: false
+		type: null
+		expression: 			
+			com.foundationdb.sql.parser.BinaryArithmeticOperatorNode@2565a3c2
+			operator: *
+			methodName: times
+			type: null
+			leftOperand: 				
+				com.foundationdb.sql.parser.NumericConstantNode@33e228bc
+				value: 3
+				type: INTEGER NOT NULL
+			rightOperand: 				
+				com.foundationdb.sql.parser.NumericConstantNode@44e06940
+				value: 10
+				type: INTEGER NOT NULL
+targetTableName: 	
+	com.foundationdb.sql.parser.TableName@e3d
+	t1

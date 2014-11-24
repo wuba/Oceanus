@@ -1,0 +1,13 @@
+com.foundationdb.sql.parser.CreateTableNode@44ee06be
+name: t
+statementType: CREATE TABLE
+lockGranularity: R
+existenceCheck: NO_CONDITION
+tableElementList: 	
+	com.foundationdb.sql.parser.TableElementList@66fcc74c
+
+	[0]:	
+	com.foundationdb.sql.parser.ColumnDefinitionNode@5d808366
+	type: MEDIUMINT
+	name: c
+	elementType: null

@@ -1,0 +1,1 @@
+ConnetionURL:jdbc:mysql://localhost:3306/showcase?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNullDriversClass:com.mysql.jdbc.DriverUserName:rootPassWord:123456MinPoolSize:1MaxPoolSize:50IdleTimeout:30SqlCreaterClass:com.bj58.sfft.utility.dao.sqlcreate.MySqlSQLCreaterProcCreaterClass:QurryTimeOut:5InsertUpdateTimeOut:5
