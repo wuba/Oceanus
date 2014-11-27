@@ -10,7 +10,9 @@
 	<packaging>pom</packaging>
 	
 	<modules>
+        <!--
 		<module>oceanus-plugins-alarm</module>
+         -->
 	</modules>
 
 </project>
