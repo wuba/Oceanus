@@ -23,7 +23,6 @@ package com.bj58.oceanus.config.factory;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.apache.commons.beanutils.BeanUtilsBean2;
 import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +31,7 @@ import com.bj58.oceanus.config.Configurations;
 import com.bj58.oceanus.config.DataNodeConfig;
 import com.bj58.oceanus.core.exception.ConfigurationException;
 import com.bj58.oceanus.core.factory.ObjectFactory;
+import com.bj58.oceanus.core.utils.BeanUtils;
 
 /**
  * 数据源节点工厂
@@ -63,7 +63,7 @@ public class DataSourceFactory implements ObjectFactory<DataNodeConfig> {
 		}
 		for (Map.Entry<String, String> entry :properties .entrySet()) {
 			try {
-				BeanUtilsBean2.getInstance().setProperty(dataSource,
+				BeanUtils.setProperty(dataSource,
 						entry.getKey(), entry.getValue());
 			} catch (Exception e) {
 				logger.error("create DataSource error!", e);

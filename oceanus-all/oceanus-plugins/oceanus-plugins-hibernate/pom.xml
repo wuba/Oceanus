@@ -3,21 +3,23 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.bj58</groupId>
-		<artifactId>oceanus-all</artifactId>
+		<artifactId>oceanus-plugins</artifactId>
 		<version>0.0.2-SNAPSHOT</version>
 	</parent>
-	<artifactId>oceanus-client</artifactId>
-	
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<oceanus.version>0.0.2-SNAPSHOT</oceanus.version>
-	</properties>
-	
+
+	<artifactId>oceanus-plugins-hibernate</artifactId>
+
 	<dependencies>
 		<dependency>
 			<groupId>com.bj58</groupId>
-			<artifactId>oceanus-exchange-jdbc</artifactId>
+			<artifactId>oceanus-client</artifactId>
 			<version>0.0.2-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>4.1.9.Final</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 </project>

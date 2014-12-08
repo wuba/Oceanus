@@ -74,7 +74,7 @@ public class TableConfigParser implements Parser<TableConfig> {
 		
 		String shardType = ParseUtils.getAttr(el, "shard-type");
 		if (shardType != null) {
-			tableConfig.setShardType(ShardType.valueOf(shardType));
+			tableConfig.setShardType(ShardType.parse(shardType));
 		} else {
 			tableConfig.setShardType(ShardType.BY_DATABASE);
 		}

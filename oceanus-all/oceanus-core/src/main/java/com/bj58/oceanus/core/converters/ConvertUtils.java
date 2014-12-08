@@ -38,7 +38,7 @@ public class ConvertUtils {
 		registerOther(true);
 	}
 
-	public static Object convert(String content, Class<?> claz) {
+	public static Object convert(Object content, Class<?> claz) {
 		Converter converter = converters.get(claz);
 		if (converter == null) {
 			return null;

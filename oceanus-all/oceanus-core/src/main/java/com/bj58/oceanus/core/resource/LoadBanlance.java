@@ -29,15 +29,15 @@ public enum LoadBanlance {
 	
 	POLL("POLL"),
 	
-	POLL_WEIGHT("POLL-WEIGHT"),
+	POLL_WEIGHT("POLL_WEIGHT"),
 	
 	RANDOM("RANDOM"),
 	
-	RANDOM_WEIGHT("RANDOM-WEIGHT"),
+	RANDOM_WEIGHT("RANDOM_WEIGHT"),
 	
-	HA_RANDOM("HA-RANDOM"),
+	HA_RANDOM("HA_RANDOM"),
 	
-	HA_RANDOM_WEIGHT("HA-RANDOM-WEIGHT");
+	HA_RANDOM_WEIGHT("HA_RANDOM_WEIGHT");
 	
 	private String input;
 	
@@ -50,8 +50,10 @@ public enum LoadBanlance {
 			return HA_RANDOM_WEIGHT;
 		
 		for(LoadBanlance loadBanlance : values()){
-			if(loadBanlance.input.equals(input))
+			if(loadBanlance.input.equals(input)
+					|| loadBanlance.name().equals(input)){
 				return loadBanlance;
+			}
 		}
 		throw new IllegalArgumentException("Unsupport LoadBanlance, input string : " + input);
 	}

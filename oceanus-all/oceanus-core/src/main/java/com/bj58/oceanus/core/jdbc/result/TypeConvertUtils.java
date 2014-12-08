@@ -22,10 +22,10 @@ package com.bj58.oceanus.core.jdbc.result;
 
 import java.sql.SQLException;
 
-import org.apache.commons.beanutils.ConvertUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.bj58.oceanus.core.converters.ConvertUtils;
 import com.bj58.oceanus.core.exception.ShardException;
 import com.bj58.oceanus.core.jdbc.aggregate.Aggregate;
  

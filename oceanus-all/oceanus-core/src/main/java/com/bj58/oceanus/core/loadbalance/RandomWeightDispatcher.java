@@ -24,13 +24,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.RandomUtils;
-
 import com.bj58.oceanus.core.context.StatementContext.BatchItem;
 import com.bj58.oceanus.core.context.StatementType;
 import com.bj58.oceanus.core.resource.DataNode;
 import com.bj58.oceanus.core.resource.DataNodeHolder;
 import com.bj58.oceanus.core.resource.NameNode;
+import com.bj58.oceanus.core.utils.RandomUtil;
 import com.google.common.collect.Maps;
 
 /**
@@ -103,7 +102,7 @@ public class RandomWeightDispatcher implements Dispatcher {
 			break;
 		}
 		
-		long randomWeight = RandomUtils.nextLong(1, getNameNodeMaxWeight(nameNode, statementType, dataNodes));
+		long randomWeight = RandomUtil.nextLong(1, getNameNodeMaxWeight(nameNode, statementType, dataNodes));
 		
 		dataNode = getDataNodeByWeight(nameNode, statementType, randomWeight);
 		

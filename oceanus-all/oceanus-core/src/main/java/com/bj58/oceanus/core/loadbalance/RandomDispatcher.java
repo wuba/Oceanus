@@ -22,13 +22,12 @@ package com.bj58.oceanus.core.loadbalance;
 
 import java.util.List;
 
-import org.apache.commons.lang3.RandomUtils;
-
 import com.bj58.oceanus.core.context.StatementContext.BatchItem;
 import com.bj58.oceanus.core.context.StatementType;
 import com.bj58.oceanus.core.resource.DataNode;
 import com.bj58.oceanus.core.resource.DataNodeHolder;
 import com.bj58.oceanus.core.resource.NameNode;
+import com.bj58.oceanus.core.utils.RandomUtil;
 
 /**
  * 分发器：随机
@@ -65,7 +64,7 @@ public class RandomDispatcher implements Dispatcher {
 		default:
 			break;
 		}
-		dataNode=dataNodes.get(RandomUtils.nextInt(0, dataNodes.size()-1));
+		dataNode=dataNodes.get(RandomUtil.nextInt(0, dataNodes.size()-1));
 		return dataNode;
 	}
 

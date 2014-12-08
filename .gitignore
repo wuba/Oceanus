@@ -1,4 +1,6 @@
 
 *.svn-base
 
-*.svn-base
+*.svn
+
+oceanus-all/oceanus-plugins/oceanus-plugins-alarm/*

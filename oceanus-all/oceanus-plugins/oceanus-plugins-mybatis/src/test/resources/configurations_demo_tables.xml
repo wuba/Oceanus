@@ -1,0 +1,20 @@
+<configurations>
+
+	<bean id="userShardFunc" class="com.bj58.oceanus.plugins.mybatis.shard.UserDynamicShardFunction" />
+	
+	<table name="t_userdynamic" differ-name="false" shard-type="BY_DATABASE_TABLE" threadpool="default">
+		<columns>
+			<column name="uid"/>
+		</columns>
+		<namenodes>
+			<namenode ref="safe_source1" tablename="t_userdynamic"/>
+			<namenode ref="safe_source2" tablename="t_userdynamic"/>
+		</namenodes>
+		
+		<function ref="userShardFunc" />
+		
+		
+	</table>
+ 
+ 
+</configurations>

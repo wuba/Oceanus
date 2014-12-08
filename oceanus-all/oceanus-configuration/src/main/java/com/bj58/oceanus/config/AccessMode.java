@@ -59,8 +59,10 @@ public enum AccessMode {
 	
 	public static AccessMode parse(String input){
 		for(AccessMode mode : values()){
-			if(mode.getInput().equals(input))
+			if(mode.getInput().equals(input)
+					|| mode.name().equals(input)){
 				return mode;
+			}
 		}
 		throw new IllegalArgumentException("Unsupport AccessMode, input string : " + input);
 	}

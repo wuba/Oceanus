@@ -24,10 +24,17 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.SQLFeatureNotSupportedException;
+import java.util.Map;
+import java.util.Properties;
 import java.util.logging.Logger;
 
 import javax.sql.DataSource;
 
+import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
+
+import com.bj58.oceanus.core.exception.ConfigurationException;
+import com.bj58.oceanus.core.jdbc.ConnectionManager;
+import com.bj58.oceanus.core.utils.BeanUtils;
 import com.bj58.oceanus.exchange.jdbc.ConnectionWrapper;
 
 /**
@@ -40,6 +47,20 @@ public class DataSourceWrapper implements DataSource {
 
 	public DataSourceWrapper(DataSource datasource) {
 		this.datasource = datasource;
+	}
+	
+	public DataSourceWrapper(Properties properties){
+		BasicDataSource dbcpDataSource = new BasicDataSource();
+		for (Map.Entry<Object, Object> entry : properties .entrySet()) {
+			try {
+				BeanUtils.setProperty(dbcpDataSource,
+						entry.getKey().toString(), entry.getValue().toString());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+		this.datasource = dbcpDataSource;
 	}
 
 	@Override
@@ -64,6 +85,9 @@ public class DataSourceWrapper implements DataSource {
 	 */
 	@Override
 	public PrintWriter getLogWriter() throws SQLException {
+		if(datasource == null)
+			throw new ConfigurationException("Logic DataSource in Oceanus, do not support this function");
+		
 		return datasource.getLogWriter();
 	}
 
@@ -74,6 +98,9 @@ public class DataSourceWrapper implements DataSource {
 	 */
 	@Override
 	public void setLogWriter(PrintWriter out) throws SQLException {
+		if(datasource == null)
+			throw new ConfigurationException("Logic DataSource in Oceanus, do not support this function");
+		
 		datasource.setLogWriter(out);
 
 	}
@@ -85,6 +112,9 @@ public class DataSourceWrapper implements DataSource {
 	 */
 	@Override
 	public void setLoginTimeout(int seconds) throws SQLException {
+		if(datasource == null)
+			throw new ConfigurationException("Logic DataSource in Oceanus, do not support this function");
+		
 		datasource.setLoginTimeout(seconds);
 	}
 
@@ -95,6 +125,9 @@ public class DataSourceWrapper implements DataSource {
 	 */
 	@Override
 	public int getLoginTimeout() throws SQLException {
+		if(datasource == null)
+			throw new ConfigurationException("Logic DataSource in Oceanus, do not support this function");
+		
 		return datasource.getLoginTimeout();
 	}
 
@@ -109,8 +142,22 @@ public class DataSourceWrapper implements DataSource {
      */
 	@Override
 	public Connection getConnection() throws SQLException {
-		Connection connection = datasource.getConnection();
-		return new ConnectionWrapper(connection,null);
+		Connection connection = null;
+		
+		if(datasource != null)
+			connection = datasource.getConnection();
+
+		return new ConnectionWrapper(connection, new ConnectionManager() {
+			
+			@Override
+			public void release(Connection conn) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}, null);
 	}
 
 	/*
@@ -122,7 +169,11 @@ public class DataSourceWrapper implements DataSource {
 	@Override
 	public Connection getConnection(String username, String password)
 			throws SQLException {
-		Connection connection = datasource.getConnection(username, password);
+		Connection connection = null;
+		
+		if(datasource != null)
+			datasource.getConnection(username, password);
+		
 		return new ConnectionWrapper(connection,null);
 	}
 
