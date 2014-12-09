@@ -39,8 +39,8 @@ public class ThreadPoolConfigParser implements Parser<ThreadPoolConfig> {
 		String id = ParseUtils.getAttr(el, ID_ATTR);
 		threadPoolConfig.setId(id);
 		String sizeStr = ParseUtils.getAttr(el, "size");
-		Integer coreSize = ((sizeStr == null || sizeStr.trim().length() <= 0) ? Integer
-				.valueOf(sizeStr) : CORE_SIZE);
+		Integer coreSize = ((sizeStr == null || sizeStr.trim().length() <= 0) ? 
+				CORE_SIZE : Integer.valueOf(sizeStr));
 		threadPoolConfig.setCoreSize(coreSize); 
 		Configurations.registerConfig(threadPoolConfig);
 		return threadPoolConfig;

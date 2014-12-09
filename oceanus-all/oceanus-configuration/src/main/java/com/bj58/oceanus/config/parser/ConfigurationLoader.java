@@ -57,16 +57,17 @@ public class ConfigurationLoader {
 		logger.info("start load configuration files ...");
 		long begin = System.currentTimeMillis();
 		
-		loadConfigFile(new File(path));
+		loadConfigFile(path);
 		
 		logger.info("configuration files loaded ...   cost "+(System.currentTimeMillis()-begin)+"ms");
 	}
 	
-	void loadConfigFile(File configFile) throws Exception {
+	void loadConfigFile(String path) throws Exception {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder docBuilder = factory.newDocumentBuilder();
+		File configFile = new File(path);
 		if(configFile==null || !configFile.exists())
-			throw new Exception("oceanus config file:"+configFile.getName()+" not found !");
+			throw new Exception("oceanus config file:"+path+" not found !");
 		
 		Document document = docBuilder.parse(configFile);
 		NodeList rootNodeList = ParseUtils
@@ -83,7 +84,7 @@ public class ConfigurationLoader {
 		for(Node includeNode : includeNodes) {
 			IncludeConfig includeConfig = (IncludeConfig) ParseUtils.getParser(includeNode).parse((Element)includeNode);
 			
-			loadConfigFile(new File(configFile.getParent() + SEPERATOR + includeConfig.getFile()));
+			loadConfigFile(configFile.getParent() + SEPERATOR + includeConfig.getFile());
 		}
 	}
 	

@@ -56,7 +56,7 @@ public final class Oceanus {
 	}
 	
 	public static void checkInit() {
-		if(inited == null)
+		if(!inited.get())
 			throw new ConfigurationException("oceanus need init !");
 	}
 	
