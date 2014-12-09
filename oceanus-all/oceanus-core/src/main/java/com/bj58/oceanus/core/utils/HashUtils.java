@@ -105,8 +105,6 @@ public class HashUtils {
 			result = GetHashCode((Short) value);
 		} else if (value instanceof Long) {
 			result = GetHashCode((Long) value);
-		} else if (value instanceof Long) {
-			result = GetHashCode((Long) value);
 		} else if (value instanceof Double) {
 			result = GetHashCode((Double) value);
 		} else if (value instanceof Float) {
