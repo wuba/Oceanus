@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configurations>
-  <threadpool id="default" size="100" />
-
-	<include file="configurations_demo_datanodes.xml"/>
-
 	
-	<include file="configurations_demo_tables.xml"/>
+	<threadpool id="default" size="100" />
 
-	 
-	<include file="configurations_demo_namenodes.xml"/>
+	<include file="configurations_demo_datanodes.xml" />
+	<include file="configurations_demo_tables.xml" />
+	<include file="configurations_demo_namenodes.xml" />
 
-	<tracker type="EXECUTE_SQL" threshold="2000" class="com.bj58.oceanus.plugins.mybatis.trackers.ExecuteSqlTracker" /> 
+
+	<tracker type="EXECUTE_SQL" threshold="2000" class="com.bj58.oceanus.plugins.mybatis.trackers.ExecuteSqlTracker" />
 	<tracker type="PARSE_SQL" threshold="5" class="com.bj58.oceanus.plugins.mybatis.trackers.ParseSqlTracker" />
- 
 
 </configurations>

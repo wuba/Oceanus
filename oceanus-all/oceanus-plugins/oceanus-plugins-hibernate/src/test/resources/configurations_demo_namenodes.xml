@@ -1,16 +1,14 @@
 <configurations>
 
-	<namenode id="safe_source1" loadbalance="">
+	<namenode id="user_source1" loadbalance="">
 		<datanodes>
-			<datanode ref="safe_db1" access-mode="READONLY" weight="1" />
-			<datanode ref="safe_db4" access-mode="WRITEONLY" weight="1" />
-			<datanode ref="safe_db5" access-mode="READONLY" weight="1" />
+			<datanode ref="user_db1" access-mode="READ-WRITE" weight="10" />
 		</datanodes>
 	</namenode>
  
-	<namenode id="safe_source2" loadbalance="">
+	<namenode id="user_source2" loadbalance="">
 		<datanodes>
-			<datanode ref="safe_db2" access-mode="READ-WRITE" weight="10" />
+			<datanode ref="user_db2" access-mode="READ-WRITE" weight="10" />
 		</datanodes>
 	</namenode>
  

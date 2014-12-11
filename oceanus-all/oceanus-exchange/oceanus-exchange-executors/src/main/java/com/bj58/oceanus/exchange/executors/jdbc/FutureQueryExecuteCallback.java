@@ -61,9 +61,15 @@ public class FutureQueryExecuteCallback extends ExecuteCallback {
 		future = threadPool.submit(new Callable() {
 			@Override
 			public Object call() throws Exception {
-				Object result = doExecute(statement, sql, callback);
-				barriar.await();
-				return result;
+				try{
+					Object result = doExecute(statement, sql, callback);
+					return result;
+				}catch(Exception e){
+					e.printStackTrace();
+					throw e;
+				}finally{
+					barriar.await();
+				}
 			}
 		});
 

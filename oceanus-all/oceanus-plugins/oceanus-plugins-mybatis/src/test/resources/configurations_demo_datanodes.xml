@@ -1,55 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 
-<pre>
-defaultAutoCommit： 对于事务是否 autoCommit, 默认值为 true
-defaultReadOnly：对于数据库是否只能读取, 默认值为 false
-initialSize：连接池启动时创建的初始化连接数量（默认值为0）
-driverClassName：连接数据库所用的 JDBC Driver Class,
-url: 连接数据库的 URL
-username：登陆数据库所用的帐号
-password： 登陆数据库所用的密码
-maxActive: 连接池中可同时连接的最大的连接数，为0则表示没有限制，默认为8
-maxIdle： 连接池中最大的空闲的连接数（默认为8,设 0 为没有限制）,超过的空闲连接将被释放，如果设置为负数表示不限制（maxIdle不能设置太小，因为假如在高负载的情况下，连接的打开时间比关闭的时间快，会引起连接池中idle的个数 上升超过maxIdle，而造成频繁的连接销毁和创建)
-minIdle：连接池中最小的空闲的连接数（默认为0，一般可调整5），低于这个数量会被创建新的连接（该参数越接近maxIdle，性能越好，因为连接的创建和销毁，都是需要消耗资源的；但是不能太大，因为在机器很空闲的时候，也会创建低于minidle个数的连接）
-maxWait： 超过时间会丟出错误信息 最大等待时间(单位为 ms)，当没有可用连接时，连接池等待连接释放的最大时间，超过该时间限制会抛出异常，如果设置-1表示无限等待（默认为-1，一般可调整为60000ms，避免因线程池不够用，而导致请求被无限制挂起）
-validationQuery： 验证连接是否成功, SQL SELECT 指令至少要返回一行
-removeAbandoned：超过removeAbandonedTimeout时间后，是否进行没用连接的回收（默认为false)
-removeAbandonedTimeout： 超过时间限制，回收五用的连接（默认为 300秒），removeAbandoned 必须为 true
-logAbandoned： 是否记录中断事件, 默认为 false
-<property name="driverClassName"  
-            value="${jdbc.driverClassName}" />  
-        <property name="url" value="${jdbc.url}" />  
-        <property name="username" value="${jdbc.username}" />  
-        <property name="password" value="${jdbc.password}" />  
-        <property name="maxActive" value="20" />  
-        <property name="initialSize" value="1" />  
-        <property name="maxWait" value="60000" />  
-        <property name="maxIdle" value="15" />  
-        <property name="minIdle" value="5" />  
-        <property name="removeAbandoned" value="true" />  
-        <property name="removeAbandonedTimeout" value="180" />  
-        ConnetionURL:jdbc:mysql://192.168.123.165:3306/showcase?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
-DriversClass:com.mysql.jdbc.Driver
-UserName:root
-PassWord:123456
-MinPoolSize:1
-MaxPoolSize:50
-IdleTimeout:30
-SqlCreaterClass:com.bj58.sfft.utility.dao.sqlcreate.MySqlSQLCreater
-ProcCreaterClass:
-QurryTimeOut:5
-InsertUpdateTimeOut:5
-</pre>
- -->
 <configurations>
   
-	<datanode id="safe_db1" slaves="safe_db2">
+	<datanode id="user_db1">
 		<url>
 		<![CDATA[
-		jdbc:mysql://192.168.123.165:3306/ppsafe58com_0?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+		jdbc:mysql://192.168.123.148:58885/test_oceanus?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
 		]]>
 		</url>
-		<username>chenyang</username>
+		<username>oceanus_tester</username>
 		<password>123456</password>
 		<driverClassName>com.mysql.jdbc.Driver</driverClassName>
 		<initialSize>10</initialSize>
@@ -58,23 +16,12 @@ InsertUpdateTimeOut:5
 		<maxIdle>5</maxIdle>		
 		<minIdle>5</minIdle>
 	</datanode>
-	<datanode id="safe_db2" parent="safe_db1" slaves="safe_db3">
+	<datanode id="user_db2" parent="user_db1">
 		<url>
 		<![CDATA[
-		jdbc:mysql://192.168.123.165:3306/ppsafe58com_2?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+		jdbc:mysql://192.168.123.153:58885/test_oceanus?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
 		]]>
 		</url> 
-	</datanode>
-	<datanode id="safe_db3" parent="safe_db1">
-		<url>
-		<![CDATA[
-		jdbc:mysql://192.168.123.165:3306/ppsafe58com_1?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
-		]]>
-		</url> 
-	</datanode>  
-	<datanode id="safe_db4" parent="safe_db1">
-	</datanode>
-	<datanode id="safe_db5" parent="safe_db1">
 	</datanode>
 
 </configurations>

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.bj58.oceanus.plugins.hibernate.entity.User" table="t_user">
+        <id name="id" type="long">
+            <column name="id" />
+        </id>
+        <property name="uname" type="java.lang.String">
+            <column name="uname" />
+        </property>
+        <property name="age" type="int">
+            <column name="age" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -35,7 +35,6 @@ import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
 import com.bj58.oceanus.core.exception.ConfigurationException;
 import com.bj58.oceanus.core.jdbc.ConnectionManager;
 import com.bj58.oceanus.core.utils.BeanUtils;
-import com.bj58.oceanus.exchange.jdbc.ConnectionWrapper;
 
 /**
  * 另外一种自定义封装数据源方式的实现
@@ -147,7 +146,7 @@ public class DataSourceWrapper implements DataSource {
 		if(datasource != null)
 			connection = datasource.getConnection();
 
-		return new ConnectionWrapper(connection, new ConnectionManager() {
+		return new DelegateConnectionWrapper(connection, new ConnectionManager() {
 			
 			@Override
 			public void release(Connection conn) {
@@ -157,6 +156,7 @@ public class DataSourceWrapper implements DataSource {
 					e.printStackTrace();
 				}
 			}
+			
 		}, null);
 	}
 
@@ -174,7 +174,7 @@ public class DataSourceWrapper implements DataSource {
 		if(datasource != null)
 			datasource.getConnection(username, password);
 		
-		return new ConnectionWrapper(connection,null);
+		return new DelegateConnectionWrapper(connection,null);
 	}
 
 }

@@ -57,7 +57,7 @@ import com.bj58.oceanus.exchange.builder.StatementContextBuilder;
  * 
  * @author Service Platform Architecture Team (spat@58.com)
  */
-public final class ConnectionWrapper extends AbstractConnection implements
+public class ConnectionWrapper extends AbstractConnection implements
 		Connection, LifeCycle {
 	StatementContextBuilder builder = new DefaultStatementContextBuilder();
 	volatile int closedCount = 0;

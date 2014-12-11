@@ -5,22 +5,20 @@ import java.io.IOException;
 import java.io.Reader;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.concurrent.TimeUnit;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.apache.ibatis.transaction.Transaction;
-import org.apache.ibatis.transaction.TransactionFactory;
-import org.apache.ibatis.transaction.managed.ManagedTransactionFactory;
 import org.junit.Test;
 
 import com.bj58.oceanus.client.Oceanus;
-import com.bj58.oceanus.plugins.mybatis.datasource.OceanusDataSourceFactory;
-import com.bj58.oceanus.plugins.mybatis.datasource.OceanusTransactionFactory;
-import com.bj58.oceanus.plugins.mybatis.entity.UserDynamic;
+import com.bj58.oceanus.core.utils.RandomUtil;
+import com.bj58.oceanus.plugins.mybatis.entity.User;
 
 public class MybatisTest {
 
@@ -47,65 +45,123 @@ public class MybatisTest {
 	}
 	
 	@Test
-	public void simpleTest() throws SQLException{
-		while(true){
-			for(long uid = 1; uid<9999; uid++){
+	public void insertTest() throws SQLException {
+		for(long id=1; id<=100; id++){
+			SqlSession session = sqlSessionFactory.openSession(ExecutorType.BATCH);
+			int result = -1;
+			try {
+				result = session.insert("com.bj58.oceanus.plugins.mybatis.entity.UserMapper.insertUser", new User(id, "uname"+id, RandomUtil.nextInt(10, 30)));
+				System.out.println(result);
+				id++;
 				
-				SqlSession session = sqlSessionFactory.openSession();
-				try {
-//					UserDynamic userDynamic = (UserDynamic) session.selectOne("com.bj58.oceanus.plugins.mybatis.entity.UserDynamicMapper.selectUserByID", uid);
-//					System.out.println(userDynamic);
-					
-					int result = session.update("com.bj58.oceanus.plugins.mybatis.entity.UserDynamicMapper.updateUserByID", uid);
-					System.out.println(result);
-				} finally {
-					session.close();
-				}
+				result = session.insert("com.bj58.oceanus.plugins.mybatis.entity.UserMapper.insertUser", new User(id, "uname"+id, RandomUtil.nextInt(10, 30)));
+				System.out.println(result);
+				id++;
+				
+				result = session.insert("com.bj58.oceanus.plugins.mybatis.entity.UserMapper.insertUser", new User(id, "uname"+id, RandomUtil.nextInt(10, 30)));
+				System.out.println(result);
+				id++;
+				
+				result = session.insert("com.bj58.oceanus.plugins.mybatis.entity.UserMapper.insertUser", new User(id, "uname"+id, RandomUtil.nextInt(10, 30)));
+				System.out.println(result);
+				id++;
+				
+				result = session.insert("com.bj58.oceanus.plugins.mybatis.entity.UserMapper.insertUser", new User(id, "uname"+id, RandomUtil.nextInt(10, 30)));
+				System.out.println(result);
+				id++;
+				
+				result = session.insert("com.bj58.oceanus.plugins.mybatis.entity.UserMapper.insertUser", new User(id, "uname"+id, RandomUtil.nextInt(10, 30)));
+				System.out.println(result);
+				id++;
+				
+				result = session.insert("com.bj58.oceanus.plugins.mybatis.entity.UserMapper.insertUser", new User(id, "uname"+id, RandomUtil.nextInt(10, 30)));
+				System.out.println(result);
+				id++;
+				
+				result = session.insert("com.bj58.oceanus.plugins.mybatis.entity.UserMapper.insertUser", new User(id, "uname"+id, RandomUtil.nextInt(10, 30)));
+				System.out.println(result);
+				id++;
+				
+				result = session.insert("com.bj58.oceanus.plugins.mybatis.entity.UserMapper.insertUser", new User(id, "uname"+id, RandomUtil.nextInt(10, 30)));
+				System.out.println(result);
+				id++;
+				
+				result = session.insert("com.bj58.oceanus.plugins.mybatis.entity.UserMapper.insertUser", new User(id, "uname"+id, RandomUtil.nextInt(10, 30)));
+				System.out.println(result);
+				
+				session.commit();
+			} catch(Exception e){
+				e.printStackTrace();
+				session.rollback();
+			}finally {
+				session.close();
 			}
 		}
 	}
 	
 	@Test
-	public void transactionTest() throws SQLException{
-		Transaction transaction = null;
-		while(true){
-			for(long uid = 1; uid<10; uid++){
-				SqlSession session = sqlSessionFactory.openSession(ExecutorType.BATCH);
-				TransactionFactory transactionFactory = new OceanusTransactionFactory();
-				transaction = transactionFactory.newTransaction(session.getConnection());
-				int result = -1;
-				try {
-					result = session.update("com.bj58.oceanus.plugins.mybatis.entity.UserDynamicMapper.updateUserByID", uid);
-					System.out.println(result);
-					uid++;
-					
-					result = session.update("com.bj58.oceanus.plugins.mybatis.entity.UserDynamicMapper.updateUserByID", uid);
-					System.out.println(result);
-					uid++;
-					
-					result = session.update("com.bj58.oceanus.plugins.mybatis.entity.UserDynamicMapper.updateUserByID", uid);
-					System.out.println(result);
-					uid++;
-					
-					result = session.update("com.bj58.oceanus.plugins.mybatis.entity.UserDynamicMapper.updateUserByID", uid);
-					System.out.println(result);
-					
-					session.commit();
-					transaction.commit();
-					session.close();
-				} catch(Exception e){
-					e.printStackTrace();
-					transaction.rollback();
-				}finally {
-					transaction.close();
-				}
-			}
+	public void deleteTest() throws SQLException {
+		SqlSession session = sqlSessionFactory.openSession(true);
+		session.delete("com.bj58.oceanus.plugins.mybatis.entity.UserMapper.deleteUser");
+		session.close();
+	}
+	
+	@Test
+	public void selectTest() throws SQLException {
+		for(long id=1; id<=100; id++){
+			SqlSession session = sqlSessionFactory.openSession(true);
 			try {
-				TimeUnit.SECONDS.sleep(2);
-			} catch (InterruptedException e) {
+				User user = session.selectOne("com.bj58.oceanus.plugins.mybatis.entity.UserMapper.selectUserByID", Long.valueOf(id));
+				System.out.println(user);
+			} catch(Exception e){
 				e.printStackTrace();
+			}finally {
+				session.close();
 			}
 		}
 	}
+	
+	@Test
+	public void selectLimitTest() throws SQLException{
+		int pageSize = 10;
+		int pageNumber = 1;
+		for(;pageNumber<=10; pageNumber++){
+			int startIndex = (pageNumber-1) * pageSize;
+			Map<String, Integer> params = new HashMap<String, Integer>();
+			params.put("startIndex", startIndex);
+			params.put("pageSize", pageSize);
+			
+			SqlSession session = sqlSessionFactory.openSession(true);
+			try {
+				List<User> users = session.selectList("com.bj58.oceanus.plugins.mybatis.entity.UserMapper.selectUserLimit", params);
+				System.out.println(users);
+			} catch(Exception e){
+				e.printStackTrace();
+			}finally {
+				session.close();
+			}
+		}
+	}
+	
+	
+//	@Test
+//	public void simpleTest() throws SQLException{
+//		while(true){
+//			for(long id = 1; id<9999; id++){
+//				
+//				SqlSession session = sqlSessionFactory.openSession();
+//				try {
+//					User user = (User) session.selectOne("com.bj58.oceanus.plugins.mybatis.entity.User.selectUserByID", id);
+//					System.out.println(user);
+//					
+////					int result = session.update("com.bj58.oceanus.plugins.mybatis.entity.User.updateUserByID", id);
+////					System.out.println(result);
+//				} finally {
+//					session.close();
+//				}
+//			}
+//		}
+//	}
+	
 
 }

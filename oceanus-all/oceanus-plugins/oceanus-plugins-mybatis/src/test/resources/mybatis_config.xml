@@ -5,40 +5,23 @@
 
 <configuration>
 	<typeAliases>
-		<typeAlias alias="UserDynamic" type="com.bj58.oceanus.plugins.mybatis.entity.UserDynamic" />
+		<typeAlias alias="User" type="com.bj58.oceanus.plugins.mybatis.entity.User" />
 	</typeAliases>
 
 	<environments default="development">
 		<environment id="development">
-			<transactionManager type="MANAGED">
+			<transactionManager type="JDBC">
 			</transactionManager>
 			<dataSource type="com.bj58.oceanus.plugins.mybatis.datasource.OceanusDataSourceFactory">
 				<property name="driver" value="com.mysql.jdbc.Driver" />
-				<property name="url" value="jdbc:mysql://192.168.123.165:3306/ppsafe58com_0" />
-				<property name="username" value="chenyang" />
+				<property name="url" value="jdbc:mysql://192.168.123.148:58885/test_oceanus" />
+				<property name="username" value="oceanus_tester" />
 				<property name="password" value="123456" />
-				<!-- config in oceanus -->
-				<!-- 
-				<property name="initialSize" value="5" />
-				<property name="maxActive" value="50" />
-				<property name="maxIdle" value="3" />
-				<property name="minIdle" value="2" />
-				<property name="maxWait" value="5000" />
-				<property name="validationQuery" value="select 1" />
-				<property name="testOnBorrow" value="false" />
-				<property name="testOnReturn" value="false" />
-				<property name="testWhileIdle" value="true" />
-				<property name="timeBetweenEvictionRunsMillis" value="60000" />
-				<property name="minEvictableIdleTimeMillis" value="60000" />
-				<property name="removeAbandoned" value="true" />
-				<property name="logAbandoned" value="true" />
-				-->
-				<!-- config in oceanus -->
 			</dataSource>
 		</environment>
 	</environments>
 
 	<mappers>
-		<mapper resource="com/bj58/oceanus/plugins/mybatis/mappers/userdynamic.xml" />
+		<mapper resource="com/bj58/oceanus/plugins/mybatis/mappers/user.xml" />
 	</mappers>
 </configuration>
