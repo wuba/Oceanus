@@ -1,0 +1,38 @@
+<configurations>
+
+	<!--  
+		namenode 定义一个数据源的簇
+			属性：id （必填）为该数据源簇命名
+			属性：loadbalance （必填）指定负载均衡的方式
+			子节点：datanodes 内部填充datanode列表
+				子节点：datanode 
+					属性：ref （必填）指向datanode id
+					属性：access-mode （必填）定义datanode的读写模式。可选值：READONLY（只读）、WRITEONLY（只写）、READ-WRITE（读写）
+					属性：weight （选填）定义datanode在该簇中的权重
+	-->
+	<namenode id="user_source1" loadbalance="HA_RANDOM_WEIGHT">
+		<datanodes>
+			<datanode ref="user_db1" access-mode="READ-WRITE" weight="10" />
+		</datanodes>
+	</namenode>
+	<namenode id="user_source2" loadbalance="HA_RANDOM_WEIGHT">
+		<datanodes>
+			<datanode ref="user_db2" access-mode="READ-WRITE" weight="10" />
+		</datanodes>
+	</namenode>
+	
+	
+ 
+ 	<namenode id="product_source1" loadbalance="HA_RANDOM_WEIGHT">
+		<datanodes>
+			<datanode ref="product_by_schema_db1" access-mode="READ-WRITE" weight="10" />
+		</datanodes>
+	</namenode>
+	<namenode id="product_source2" loadbalance="HA_RANDOM_WEIGHT">
+		<datanodes>
+			<datanode ref="product_by_schema_db2" access-mode="READ-WRITE" weight="10" />
+		</datanodes>
+	</namenode>
+
+ 
+</configurations>

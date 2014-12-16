@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurations>
+
+	<!-- 
+		threadpool 标签定义一个线程池供oceanus使用，size根据DB操作并发量和服务器硬件情况调整 
+	-->
+	<threadpool id="default" size="100" />
+
+
+
+	<!-- 
+		include 标签允许配置文件引用嵌套 
+	-->
+	<include file="configurations_demo_datanodes.xml" />
+	<include file="configurations_demo_tables.xml" />
+	<include file="configurations_demo_namenodes.xml" />
+
+
+
+	<!-- 
+		tracker 是oceanus埋点监控
+			type取值范围：GET_CONNECTION (表示从连接池中获取连接)、CONNECTION_CONTEXT（一个connection context的生命周期）、EXECUTE_SQL（sql的执行耗时）、PARSE_SQL（解析sql耗时）
+			threshold 表示阈值时间，当耗时超过这个阈值时会调用对应的实现类的 doTrack 方法，传递当时操作的sql、对应耗时等信息
+			class值为 tracker的子类
+	-->
+	<tracker type="EXECUTE_SQL" threshold="2000" class="com.bj58.oceanus.demo.trackers.ExecuteSqlTracker" />
+	<tracker type="PARSE_SQL" threshold="5" class="com.bj58.oceanus.demo.trackers.ParseSqlTracker" />
+
+</configurations>

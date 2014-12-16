@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurations>
+  	
+  	<!-- 
+  		datanode 定义一个数据源，
+  			属性：id （必填）为该数据源命名
+  			属性：parent （选填）指向另一个数据源id，表示继承另一个数据源的配置
+  			属性：slaves （选填）指向另一个数据源id，声明另一个数据源是该数据源的备库，当前主库不可用的时候就使用备库
+  			子节点：oceanus目前使用DBCP作为连接池，配置项和默认值请参见使用文档
+  	-->
+	<datanode id="user_db1" alarm="com.bj58.oceanus.demo.alarms.DefaultAlarm">
+		<url>
+		<![CDATA[
+		jdbc:mysql://192.168.123.148:58885/test_oceanus?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+		]]>
+		</url>
+		<username>oceanus_tester</username>
+		<password>123456</password>
+		<driverClassName>com.mysql.jdbc.Driver</driverClassName>
+		<initialSize>10</initialSize>
+		<maxActive>50</maxActive>
+		<maxWait>5000</maxWait>
+		<maxIdle>5</maxIdle>		
+		<minIdle>5</minIdle>
+	</datanode>
+	<datanode id="user_db2" parent="user_db1">
+		<url>
+		<![CDATA[
+		jdbc:mysql://192.168.123.153:58885/test_oceanus?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+		]]>
+		</url> 
+	</datanode>
+	
+	<datanode id="product_by_schema_db1">
+		<url>
+		<![CDATA[
+		jdbc:mysql://192.168.123.148:58885/?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+		]]>
+		</url>
+		<username>oceanus_tester</username>
+		<password>123456</password>
+		<driverClassName>com.mysql.jdbc.Driver</driverClassName>
+		<initialSize>10</initialSize>
+		<maxActive>50</maxActive>
+		<maxWait>5000</maxWait>
+		<maxIdle>5</maxIdle>		
+		<minIdle>5</minIdle>
+	</datanode>
+	<datanode id="product_by_schema_db2" parent="product_by_schema_db1">
+		<url>
+		<![CDATA[
+		jdbc:mysql://192.168.123.153:58885/?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+		]]>
+		</url>
+	</datanode>
+
+</configurations>
