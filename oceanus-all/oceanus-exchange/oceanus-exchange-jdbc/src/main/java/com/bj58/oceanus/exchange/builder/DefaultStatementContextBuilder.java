@@ -24,8 +24,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Collection;
-import java.util.Map;
-import java.util.WeakHashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,32 +56,8 @@ public class DefaultStatementContextBuilder implements StatementContextBuilder {
 			.getLogger(DefaultStatementContextBuilder.class);
 	static final ShardQueryGenerator generator = new DefaultShardQueryGenerator();
 	static final ShardQueryGenerator limitAvgGenerator = new LimitAggregateQueryGenerator();
-	static final ThreadLocal<Map<String, AnalyzeResult>> THREAD_LOCAL_CACHES = new ThreadLocal<Map<String, AnalyzeResult>>() {
-		protected Map<String, AnalyzeResult> initialValue() {
-			Map<String, AnalyzeResult> CACHE_PARSE_RESULTS = new WeakHashMap<String, AnalyzeResult>();
-			return CACHE_PARSE_RESULTS;
-		}
-	};
 
-	/*private AnalyzeResult getFromCache(String sql) {
-		Map<String, AnalyzeResult> map = THREAD_LOCAL_CACHES.get();
-		AnalyzeResult cacheResult = map.get(sql);
-		return cacheResult;
-	}
-
-	private void cacheAnalyzeResult(BatchItem batchItem) {
-		Map<String, AnalyzeResult> map = THREAD_LOCAL_CACHES.get();
-		map.put(batchItem.getSql(), batchItem.getAnalyzeResult());
-	}*/
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.bj58.oceanus.exchange.builder.StatementContextBuilder#build(java.
-	 * lang.String)
-	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	@Override
 	public StatementContext build(String sql, StatementContext context)
 			throws SQLException {
@@ -98,18 +72,6 @@ public class DefaultStatementContextBuilder implements StatementContextBuilder {
 			context.getCurrentBatch().setSql(sql);
 		}
 
-		/*if (context.getStatementWrapper() instanceof PreparedStatement
-				&& context.getBaches().size() == 1) {// 对PreparedStaement进行缓存处理
-
-			AnalyzeResult analyzeResult = getFromCache(context
-					.getCurrentBatch().getSql());
-			if (analyzeResult != null) {
-				processPreparedValuesCache(context, analyzeResult);
-				return context;
-			}
-
-		}*/
-		@SuppressWarnings("rawtypes")
 		StatementContextHandler handler = null;
 		if (context.isBatch()) {
 			handler = HandlerFactory.create(StatementType.BATCH);
@@ -146,10 +108,6 @@ public class DefaultStatementContextBuilder implements StatementContextBuilder {
 			
 			TrackerExecutor.trackEnd(TrackPoint.PARSE_SQL);
 			
-			/*if (context.getStatementWrapper() instanceof PreparedStatement
-					&& context.getBaches().size() == 1) {// 对PreparedStaement进行缓存处理
-				cacheAnalyzeResult(context.getCurrentBatch());
-			}*/
 			processPreparedValues(resultContext);
 			return resultContext;
 
@@ -157,7 +115,6 @@ public class DefaultStatementContextBuilder implements StatementContextBuilder {
 			System.out.println("sql parse error, sql:"+sql);
 			se.printStackTrace();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		processPreparedValues(context);
@@ -170,18 +127,6 @@ public class DefaultStatementContextBuilder implements StatementContextBuilder {
 			for (BatchItem batchItem : context.getBaches()) {
 				this.setResolveColumnValues(batchItem,
 						batchItem.getAnalyzeResult());
-			}
-
-		}
-	}
-
-	private void processPreparedValuesCache(StatementContext context,
-			AnalyzeResult analyzeResult) {
-		Statement statement = context.getStatementWrapper();
-		if (statement instanceof PreparedStatement) {
-			for (BatchItem batchItem : context.getBaches()) {
-				batchItem.setAnalyzeResult(analyzeResult);
-				this.setResolveColumnValues(batchItem, analyzeResult);
 			}
 
 		}

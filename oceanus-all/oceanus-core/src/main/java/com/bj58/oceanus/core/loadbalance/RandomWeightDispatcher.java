@@ -39,8 +39,8 @@ import com.google.common.collect.Maps;
  */
 public class RandomWeightDispatcher implements Dispatcher {
 	
-	private static final Map<String, Long> maxWeightMap = Maps.newLinkedHashMap();
-	private static final Map<String, List<WeightRangeHolder>> weightRangeHolderMap = Maps.newLinkedHashMap();
+	private static final Map<String, Long> maxWeightMap = Maps.newConcurrentMap();
+	private static final Map<String, List<WeightRangeHolder>> weightRangeHolderMap = Maps.newConcurrentMap();
 
 	private static String getMapKey(NameNode nameNode, StatementType statementType){
 		return nameNode.getId() + "_" + statementType.name();
