@@ -74,6 +74,7 @@ public class ConfigurationLoader {
 				.getNodeList(document.getChildNodes(), "configurations").get(0)
 				.getChildNodes();
 		
+		this.parseThreadPoolList(rootNodeList);
 		this.parseBeanList(rootNodeList);
 		this.parseDataNodeList(rootNodeList);
 		this.parseNameNodeList(rootNodeList);
@@ -116,6 +117,12 @@ public class ConfigurationLoader {
 	void parseTrackerList(NodeList rootNodeList) {
 		List<Node> nodeList = ParseUtils.getNodeList(rootNodeList, 
 				TRACKER_TAG);
+		parseNodeList(nodeList);
+	}
+	
+	void parseThreadPoolList(NodeList rootNodeList) {
+		List<Node> nodeList = ParseUtils.getNodeList(rootNodeList, 
+				THREAD_POOL_TAG);
 		parseNodeList(nodeList);
 	}
 

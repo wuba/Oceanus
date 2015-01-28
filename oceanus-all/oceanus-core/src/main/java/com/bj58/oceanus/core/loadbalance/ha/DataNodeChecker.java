@@ -151,6 +151,7 @@ public final class DataNodeChecker {
 						AlarmExcutor.doAlarm(AlarmType.DB_AVALIABLE, dataNode);
 					}
 				} else {
+					logger.info("DataNode ["+dataNode.getId()+"] start confirm checker !!");
 					executorService.execute(new ConfirmChecker(dataNode));
 				}
 			}

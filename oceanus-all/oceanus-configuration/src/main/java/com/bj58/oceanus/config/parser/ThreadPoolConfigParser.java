@@ -42,6 +42,17 @@ public class ThreadPoolConfigParser implements Parser<ThreadPoolConfig> {
 		Integer coreSize = ((sizeStr == null || sizeStr.trim().length() <= 0) ? 
 				CORE_SIZE : Integer.valueOf(sizeStr));
 		threadPoolConfig.setCoreSize(coreSize); 
+		
+		String queueSizeStr = ParseUtils.getAttr(el, "qsize");
+		if(queueSizeStr!=null){
+			threadPoolConfig.setQueueSize(Integer.valueOf(queueSizeStr));
+		}
+		
+		String timeoutStr = ParseUtils.getAttr(el, "timeout");
+		if(queueSizeStr!=null){
+			threadPoolConfig.setTimeout(Long.valueOf(timeoutStr));
+		}
+		
 		Configurations.registerConfig(threadPoolConfig);
 		return threadPoolConfig;
 	}

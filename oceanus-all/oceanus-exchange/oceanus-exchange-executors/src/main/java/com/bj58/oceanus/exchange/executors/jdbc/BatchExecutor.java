@@ -148,7 +148,8 @@ public class BatchExecutor implements Executor {
 			boolean asyn, boolean autoClosed) {
 
 		final ThreadPoolExecutor threadPool = Configurations.getInstance()
-				.getThreadPool();
+				.getThreadPool(tableInfo.getName());
+		
 		FutureUpdateExecuteCallback resultCallback = new FutureUpdateExecuteCallback(
 				threadPool, asyn, callback, barrier, ConnectionContext
 						.getContext().getTransaction(), autoClosed);

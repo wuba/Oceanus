@@ -27,6 +27,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.Future;
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,7 +73,7 @@ public class FutureUpdateExecuteCallback extends ExecuteCallback {
 					Object result = doExecute(statement, sql, callback);
 					return result;
 				} finally {
-					barriar.await();
+					barriar.await(threadPool.getKeepAliveTime(TimeUnit.MILLISECONDS), TimeUnit.MILLISECONDS);
 				}
 			}
 		});

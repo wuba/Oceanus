@@ -26,6 +26,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.Future;
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import com.bj58.oceanus.core.tx.Transaction;
 import com.bj58.oceanus.exchange.executors.ExecuteCallback;
@@ -68,7 +69,7 @@ public class FutureQueryExecuteCallback extends ExecuteCallback {
 					e.printStackTrace();
 					throw e;
 				}finally{
-					barriar.await();
+					barriar.await(threadPool.getKeepAliveTime(TimeUnit.MILLISECONDS), TimeUnit.MILLISECONDS);
 				}
 			}
 		});

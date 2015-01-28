@@ -28,9 +28,13 @@ package com.bj58.oceanus.config;
 public class ThreadPoolConfig implements Config {
 
 	private static final long serialVersionUID = 1L;
+	private static final Integer DEFAULT_CORE_SIZE = 100;
+	private static final Integer DEFAULT_QUEUE_SIZE = 2048;
 	
 	private String id;
-	private Integer coreSize;
+	private Integer coreSize = DEFAULT_CORE_SIZE;
+	private Integer queueSize = DEFAULT_QUEUE_SIZE;
+	private Long timeout = new Long(0);
 
 	public String getId() {
 		return id;
@@ -46,6 +50,28 @@ public class ThreadPoolConfig implements Config {
 
 	public void setCoreSize(Integer coreSize) {
 		this.coreSize = coreSize;
+	}
+
+	public Integer getQueueSize() {
+		return queueSize;
+	}
+
+	public void setQueueSize(Integer queueSize) {
+		this.queueSize = queueSize;
+	}
+
+	public Long getTimeout() {
+		return timeout;
+	}
+
+	public void setTimeout(Long timeout) {
+		this.timeout = timeout;
+	}
+
+	@Override
+	public String toString() {
+		return "ThreadPoolConfig [id=" + id + ", coreSize=" + coreSize
+				+ ", queueSize=" + queueSize + ", timeout=" + timeout + "]";
 	}
 
 }

@@ -20,9 +20,12 @@
  */
 package com.bj58.oceanus.config.factory;
 
-import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.RejectedExecutionException;
+import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import com.bj58.oceanus.config.ThreadPoolConfig;
 import com.bj58.oceanus.core.factory.ObjectFactory;
@@ -36,15 +39,30 @@ public class ThreadPoolFactory implements ObjectFactory<ThreadPoolConfig> {
 
 	@Override
 	public Object create(final ThreadPoolConfig config) {
-		ThreadPoolExecutor threadPool = (ThreadPoolExecutor) Executors
-				.newFixedThreadPool(config.getCoreSize(), new ThreadFactory() {
+		ThreadPoolExecutor threadPool = new ThreadPoolExecutor(config.getCoreSize(), 
+				config.getCoreSize(), config.getTimeout(), TimeUnit.MILLISECONDS, 
+				new LinkedBlockingQueue<Runnable>(config.getQueueSize()),
+				
+				new ThreadFactory() {
 					@Override
 					public Thread newThread(Runnable r) {
 						Thread t = new Thread(r);
-						t.setName(config.getId());
+						t.setName("oceanus-thread-"+config.getId());
 						return t;
 					}
+				},
+				
+				new RejectedExecutionHandler() {
+					@Override
+					public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
+						throw new RejectedExecutionException("oceanus-thread-" + config.getId() + 
+                                r.toString() + " rejected from " + executor.toString());
+					}
 				});
+		
+		if(config.getTimeout() > 1L)
+			threadPool.allowCoreThreadTimeOut(true);
+		
 		return threadPool;
 	}
 

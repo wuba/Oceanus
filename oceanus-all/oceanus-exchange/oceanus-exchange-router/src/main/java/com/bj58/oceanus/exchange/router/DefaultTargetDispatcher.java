@@ -140,7 +140,7 @@ public class DefaultTargetDispatcher implements TargetDispatcher {
 		nameNodeHolder.setOrgTableName(tableInfo.getOrgName());
 		nameNodeHolder.setSchema(tableInfo.getSchema());
 		DefaultRouteTarget target = this
-				.createTarget(batchItem, nameNodeHolder);
+				.createTarget(batchItem, nameNodeHolder, tableInfo);
 		targetSet.add(target);
 		SqlExecuteInfo info = new SqlExecuteInfo();
 		info.setCallbacks(new LinkedHashSet<ParameterCallback<?>>(batchItem
@@ -177,7 +177,7 @@ public class DefaultTargetDispatcher implements TargetDispatcher {
 			TableInfo tableInfo, BatchItem batchItem) {
 		Set<RouteTarget> targetSet = new LinkedHashSet<RouteTarget>();
 		DefaultRouteTarget target = this
-				.createTarget(batchItem, nameNodeHolder);
+				.createTarget(batchItem, nameNodeHolder, tableInfo);
 		targetSet.add(target);
 		SqlExecuteInfo info = new SqlExecuteInfo();
 		info.setCallbacks(new LinkedHashSet<ParameterCallback<?>>(batchItem
@@ -250,7 +250,7 @@ public class DefaultTargetDispatcher implements TargetDispatcher {
 					continue;
 				}
 			}
-			DefaultRouteTarget target = this.createTarget(batchItem, nameNode);
+			DefaultRouteTarget target = this.createTarget(batchItem, nameNode, tableInfo);
 			targetSet.add(target);
 		}
 
@@ -395,8 +395,7 @@ public class DefaultTargetDispatcher implements TargetDispatcher {
 		for (Integer i : indexs) {// 生成target
 			NameNode nameNode = configurations.getNameNode(
 					tableInfo.getOrgName(), i);
-			DefaultRouteTarget target = this.createTarget(batchItem, nameNode);
-
+			DefaultRouteTarget target = this.createTarget(batchItem, nameNode, tableInfo);
 			targetSet.add(target);
 		}
 
@@ -424,8 +423,9 @@ public class DefaultTargetDispatcher implements TargetDispatcher {
 		return targetSet;
 	}
 
-	DefaultRouteTarget createTarget(BatchItem batchItem, NameNode nameNode) {
+	DefaultRouteTarget createTarget(BatchItem batchItem, NameNode nameNode, TableInfo tableInfo) {
 		DefaultRouteTarget target = new DefaultRouteTarget(batchItem, nameNode);
+		target.getBatchItem().setMatchTable(tableInfo);
 		return target;
 	}
 

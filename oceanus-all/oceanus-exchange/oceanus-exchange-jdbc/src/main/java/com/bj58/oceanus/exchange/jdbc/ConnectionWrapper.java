@@ -37,6 +37,7 @@ import java.sql.Statement;
 import java.sql.Struct;
 import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.Executor;
 
 import com.bj58.oceanus.core.context.ConnectionContext;
 import com.bj58.oceanus.core.jdbc.ConnectionCallback;
@@ -49,6 +50,7 @@ import com.bj58.oceanus.core.jdbc.PreparedStatementCallback;
 import com.bj58.oceanus.core.jdbc.StatementCallback;
 import com.bj58.oceanus.core.lifecycle.LifeCycle;
 import com.bj58.oceanus.core.tx.Transaction;
+import com.bj58.oceanus.core.utils.ClassUtils;
 import com.bj58.oceanus.exchange.builder.DefaultStatementContextBuilder;
 import com.bj58.oceanus.exchange.builder.StatementContextBuilder;
 
@@ -1035,6 +1037,57 @@ public class ConnectionWrapper extends AbstractConnection implements
 	public void destroy() {
 		// TODO Auto-generated method stub
 
+	}
+	
+	//For JDK 7 compatability
+	public void setSchema(String schema) throws SQLException {
+		try{
+			ClassUtils.invokeMethod(orgConnection, "setSchema", 
+				new Class[]{String.class}, new Object[]{schema});
+		} catch (Exception e) {
+			throw new SQLException("Method [setSchema(String)] invoke error, make sure your jdk version above 1.7", e);
+		}
+	}
+
+	//For JDK 7 compatability
+	public String getSchema() throws SQLException {
+		try{
+			return (String) ClassUtils.invokeMethod(orgConnection, "getSchema", 
+					null, null);
+		} catch (Exception e) {
+			throw new SQLException("Method [getSchema()] invoke error, make sure your jdk version above 1.7", e);
+		}
+	}
+
+	//For JDK 7 compatability
+	public void abort(Executor executor) throws SQLException {
+		try{
+			ClassUtils.invokeMethod(orgConnection, "abort", 
+				new Class[]{Executor.class}, new Object[]{executor});
+		} catch (Exception e) {
+			throw new SQLException("Method [abort(Executor)] invoke error, make sure your jdk version above 1.7", e);
+		}
+	}
+
+	//For JDK 7 compatability
+	public void setNetworkTimeout(Executor executor, int milliseconds)
+			throws SQLException {
+		try{
+			ClassUtils.invokeMethod(orgConnection, "setNetworkTimeout", 
+				new Class[]{Executor.class, Integer.class}, new Object[]{executor, milliseconds});
+		} catch (Exception e) {
+			throw new SQLException("Method [setNetworkTimeout(Executor, int)] invoke error, make sure your jdk version above 1.7", e);
+		}
+	}
+
+	//For JDK 7 compatability
+	public int getNetworkTimeout() throws SQLException {
+		try{
+			return (Integer) ClassUtils.invokeMethod(orgConnection, "getNetworkTimeout", 
+					null, null);
+		} catch (Exception e) {
+			throw new SQLException("Method [getNetworkTimeout()] invoke error, make sure your jdk version above 1.7", e);
+		}
 	}
 
 }

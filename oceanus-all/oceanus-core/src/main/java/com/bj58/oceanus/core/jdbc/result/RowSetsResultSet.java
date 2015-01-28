@@ -1146,4 +1146,15 @@ public class RowSetsResultSet implements ResultSet,LifeCycle{
 		
 	}
 
+	//For JDK 7 compatability
+	public <T> T getObject(int columnIndex, Class<T> type) throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+
+	//For JDK 7 compatability
+	public <T> T getObject(String columnLabel, Class<T> type)
+			throws SQLException {
+		throw new UnsupportedOperationException();
+	}
+
 }

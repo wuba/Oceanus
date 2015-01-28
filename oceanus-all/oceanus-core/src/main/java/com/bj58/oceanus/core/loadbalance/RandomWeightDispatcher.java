@@ -102,7 +102,7 @@ public class RandomWeightDispatcher implements Dispatcher {
 			break;
 		}
 		
-		long randomWeight = RandomUtil.nextLong(1, getNameNodeMaxWeight(nameNode, statementType, dataNodes));
+		long randomWeight = RandomUtil.nextLong(1L, getNameNodeMaxWeight(nameNode, statementType, dataNodes));
 		
 		dataNode = getDataNodeByWeight(nameNode, statementType, randomWeight);
 		

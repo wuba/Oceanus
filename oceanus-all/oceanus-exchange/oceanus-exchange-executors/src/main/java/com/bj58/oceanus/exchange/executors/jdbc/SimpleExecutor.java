@@ -1,23 +1,3 @@
-/*
- *  Copyright Beijing 58 Information Technology Co.,Ltd.
- *
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
- *
- *        http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
- */
 package com.bj58.oceanus.exchange.executors.jdbc;
 
 import java.sql.ResultSet;
@@ -26,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -115,7 +96,8 @@ public class SimpleExecutor implements Executor {
 
 		for (RouteTarget target : targets) {
 			FutureUpdateExecuteCallback futureCallback = this
-					.createUpdateCallback(null, barrier, callback, asyn,autoClosed);
+					.createUpdateCallback(target.getBatchItem().getMatchTable()
+							, barrier, callback, asyn,autoClosed);
 			futureHolders.add(futureCallback);
 			Integer result = hanlder.handle(target, context, futureCallback);
 			if (result != null) {
@@ -128,6 +110,9 @@ public class SimpleExecutor implements Executor {
 				for (i = 0; i < futureHolders.size(); i++) {
 					sumResult += (Integer) futureHolders.get(i).future.get();
 				}
+			} catch(BrokenBarrierException bbe){
+				logger.error("not enough available thread to excute task! check your thread pool size!", bbe);
+				throw new ShardException("not enough available thread to excute task!", bbe);
 			} catch (Exception e) {
 				logger.error("asyn execute error!targets=" + targets, e);
 				throw new ShardException("asyn execute error!", e);
@@ -174,6 +159,8 @@ public class SimpleExecutor implements Executor {
 				for (i = 0; i < results.length; i++) {
 					results[i] = (ResultSet) futureHolders.get(i).future.get();
 				}
+			} catch(BrokenBarrierException bbe){
+				throw new ShardException("not enough available thread to excute task!", bbe);
 			} catch (Exception e) {
 				logger.error("asyn execute error!targets=" + targets, e);
 				throw new ShardException("asyn execute error!", e);
@@ -193,7 +180,8 @@ public class SimpleExecutor implements Executor {
 			CyclicBarrier barrier, final ExecuteCallback callback, boolean asyn,boolean autoClosed) {
 
 		final ThreadPoolExecutor threadPool = Configurations.getInstance()
-				.getThreadPool();
+				.getThreadPool(tableInfo.getName());
+		
 		FutureUpdateExecuteCallback resultCallback = new FutureUpdateExecuteCallback(
 				threadPool, asyn, callback, barrier, ConnectionContext
 						.getContext().getTransaction(),autoClosed);
@@ -204,7 +192,8 @@ public class SimpleExecutor implements Executor {
 			CyclicBarrier barrier, final ExecuteCallback callback, boolean asyn) {
 
 		final ThreadPoolExecutor threadPool = Configurations.getInstance()
-				.getThreadPool();
+				.getThreadPool(tableInfo.getName());
+		
 		FutureQueryExecuteCallback resultCallback = new FutureQueryExecuteCallback(
 				threadPool, asyn, callback, barrier, ConnectionContext
 						.getContext().getTransaction());

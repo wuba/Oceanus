@@ -131,16 +131,11 @@ public class Configurations {
 
 	private void initThreadPools() {
 
-		defaultExecuteThreadPool = (ThreadPoolExecutor) Executors
-				.newFixedThreadPool(100, new ThreadFactory() {
-
-					@Override
-					public Thread newThread(Runnable r) {
-						Thread t = new Thread(r);
-						t.setName("oceanus-thread");
-						return t;
-					}
-				});
+		ThreadPoolConfig defaultConfig = new ThreadPoolConfig();
+		defaultConfig.setId("oceanus-thread-default");
+		defaultExecuteThreadPool = (ThreadPoolExecutor) threadPoolFactory
+				.create(defaultConfig);
+		
 		for (ThreadPoolConfig config : threadPoolsConfigMap.values()) {
 			ThreadPoolExecutor threadPool = (ThreadPoolExecutor) threadPoolFactory
 					.create(config);
@@ -307,7 +302,16 @@ public class Configurations {
 			nameNodesConfigMap.put(idConfig.getId(), idConfig);
 		}
 		if (config instanceof ThreadPoolConfig) {
-
+			ThreadPoolConfig threadPoolConfig = (ThreadPoolConfig) config;
+			if (threadPoolConfig.getId() == null){
+				return;
+			}
+			String key = threadPoolConfig.getId();
+			if (threadPoolsConfigMap.containsKey(key)) {
+				throw new ConfigurationException("ThreadPool id=[" + key
+						+ "] duplicate!please check your config!");
+			}
+			threadPoolsConfigMap.put(threadPoolConfig.getId(), threadPoolConfig);
 		}
 
 	}
@@ -417,6 +421,17 @@ public class Configurations {
 	}
 
 	public ThreadPoolExecutor getThreadPool() {
+		return defaultExecuteThreadPool;
+	}
+	
+	public ThreadPoolExecutor getThreadPool(String tableName) {
+		tableName = tableName.toUpperCase();
+		if(tableConfigMap.containsKey(tableName)){
+			String threadPoolId = tableConfigMap.get(tableName).getThreadPoolId();
+			if(threadPoolsHoldersMap.containsKey(threadPoolId)){
+				return threadPoolsHoldersMap.get(threadPoolId);
+			}
+		}
 		return defaultExecuteThreadPool;
 	}
 
