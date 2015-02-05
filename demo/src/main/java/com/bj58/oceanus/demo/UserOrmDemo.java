@@ -39,7 +39,7 @@ public class UserOrmDemo extends BaseDao{
 			System.exit(1);
 		}
 	}
-
+	
 	@Test
 	public void selectTest() throws Exception {
 		String sql = "select * from t_user where id=?";

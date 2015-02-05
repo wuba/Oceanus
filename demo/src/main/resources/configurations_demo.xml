@@ -2,9 +2,12 @@
 <configurations>
 
 	<!-- 
-		threadpool 标签定义一个线程池供oceanus使用，size根据DB操作并发量和服务器硬件情况调整 
+		threadpool 标签定义一个线程池供oceanus使用
+			size：线程池大小。根据DB操作并发量和服务器硬件情况调整 
+			qsize：执行队列的长度
+			timeout：执行超时时间
 	-->
-	<threadpool id="default" size="100" />
+	<threadpool id="default" size="100" qsize="1024" timeout="100000" />
 
 
 
@@ -24,6 +27,6 @@
 			class值为 tracker的子类
 	-->
 	<tracker type="EXECUTE_SQL" threshold="2000" class="com.bj58.oceanus.demo.trackers.ExecuteSqlTracker" />
-	<tracker type="PARSE_SQL" threshold="5" class="com.bj58.oceanus.demo.trackers.ParseSqlTracker" />
+	<tracker type="PARSE_SQL" threshold="-1" class="com.bj58.oceanus.demo.trackers.ParseSqlTracker" />
 
 </configurations>

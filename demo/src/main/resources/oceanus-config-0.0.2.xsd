@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema id="OceanusSchema" elementFormDefault="qualified"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+
+	<!-- configuration 的全局定义 -->
+	<xs:element name="configurations">
+		<xs:complexType>
+			<xs:all>
+				<xs:element name="threadpool" type="xs:string"></xs:element>
+				<xs:element name="include" type="xs:string"></xs:element>
+				<xs:element name="tracker" type="xs:string"></xs:element>
+				<xs:element name="datanode" type="xs:string"></xs:element>
+				<xs:element name="namenode" type="xs:string"></xs:element>
+				<xs:element name="bean" type="xs:string"></xs:element>
+				<xs:element name="table" type="xs:string"></xs:element>
+			</xs:all>
+		</xs:complexType>
+	</xs:element>
+
+	<!-- threadpool -->
+	<xs:element name="threadpool">
+		<xs:complexType>
+			<xs:attribute name="id" type="xs:string" use="required"></xs:attribute>
+			<xs:attribute name="size" type="xs:int" use="required"></xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+	<!-- include -->
+	<xs:element name="include">
+		<xs:complexType>
+			<xs:attribute name="file" type="xs:string" use="required"></xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+	<!-- tracker -->
+	<xs:element name="tracker">
+		<xs:complexType>
+			<xs:attribute name="type" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="GET_CONNECTION" />
+						<xs:enumeration value="CONNECTION_CONTEXT" />
+						<xs:enumeration value="EXECUTE_SQL" />
+						<xs:enumeration value="PARSE_SQL" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="threshold" type="xs:int" use="required"></xs:attribute>
+			<xs:attribute name="class" type="xs:string" use="required"></xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+	<!-- datanode -->
+	<xs:element name="datanode">
+		<xs:complexType>
+			<xs:all>
+				<xs:element name="url" form="qualified" type="xs:string"></xs:element>
+				<xs:element name="username" form="qualified" type="xs:string"></xs:element>
+				<xs:element name="password" form="qualified" type="xs:string"></xs:element>
+				<xs:element name="driverClassName" form="qualified" type="xs:string"></xs:element>
+			</xs:all>
+			<xs:attribute name="id" type="xs:string" use="required"></xs:attribute>
+			<xs:attribute name="parent" type="xs:string"></xs:attribute>
+			<xs:attribute name="slaves" type="xs:string"></xs:attribute>
+			<xs:attribute name="alarm" type="xs:string"></xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	
+	<!-- namenode -->
+	<xs:element name="namenode">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="datanodes" form="qualified">
+					<xs:complexType>
+						<xs:all>
+							<xs:element ref="datanode"></xs:element>
+						</xs:all>
+						<xs:attribute name="ref" type="xs:string"></xs:attribute>
+						<xs:attribute name="access-mode" use="required">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:enumeration value="READONLY"></xs:enumeration>
+									<xs:enumeration value="WRITEONLY"></xs:enumeration>
+									<xs:enumeration value="READ-WRITE"></xs:enumeration>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="id" type="xs:string" use="required"></xs:attribute>
+			<xs:attribute name="weight" type="xs:int" use="required"></xs:attribute>
+			<xs:attribute name="loadbalance" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="POLL" />
+						<xs:enumeration value="POLL_WEIGHT" />
+						<xs:enumeration value="RANDOM" />
+						<xs:enumeration value="RANDOM_WEIGHT" />
+						<xs:enumeration value="HA_RANDOM" />
+						<xs:enumeration value="HA_RANDOM_WEIGHT" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	
+	<!-- bean -->
+	<xs:element name="bean">
+		<xs:complexType>
+			<xs:attribute name="id" type="xs:string" use="required"></xs:attribute>
+			<xs:attribute name="class" type="xs:string" use="required"></xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	
+	<!-- table -->
+	<xs:element name="table">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="columns" form="qualified">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="column">
+								<xs:complexType>
+									<xs:attribute name="name" type="xs:string" use="required"></xs:attribute>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="namenodes" form="qualified">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="colnamenode">
+								<xs:complexType>
+									<xs:attribute name="ref" type="xs:string" use="required"></xs:attribute>
+									<xs:attribute name="tablename" type="xs:string" use="required"></xs:attribute>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="name" type="xs:string" use="required"></xs:attribute>
+			<xs:attribute name="differ-name" type="xs:boolean"></xs:attribute>
+			<xs:attribute name="shard-type" type="xs:string"></xs:attribute>
+			<xs:attribute name="threadpool" type="xs:string"></xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+</xs:schema>

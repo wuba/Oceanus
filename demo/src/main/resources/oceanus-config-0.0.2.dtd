@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT configurations (threadpool*, include*, tracker*, datanode*, namenode*, bean*, table*)>
+
+<!-- threadpool -->
+<!ELEMENT threadpool EMPTY>
+<!ATTLIST threadpool 
+	id CDATA #REQUIRED
+	size CDATA "50">
+
+<!-- include -->
+<!ELEMENT include EMPTY>
+<!ATTLIST include file CDATA #REQUIRED>
+
+<!-- tracker -->
+<!ELEMENT tracker EMPTY>
+<!ATTLIST tracker 
+	type CDATA #REQUIRED
+	threshold CDATA #REQUIRED
+	class CDATA #REQUIRED>
+
+<!-- bean -->
+<!ELEMENT bean EMPTY>
+<!ATTLIST bean 
+	id CDATA #REQUIRED
+	class CDATA #REQUIRED>
+
+<!-- datanode -->
+<!ELEMENT datanode (url,username,password,driverClassName,initialSize?,maxActive?,maxWait?,maxIdle?,minIdle?)>
+<!ATTLIST datanode 
+	id CDATA #REQUIRED
+	alarm CDATA #IMPLIED
+	ref CDATA #IMPLIED
+	access-mode CDATA #IMPLIED
+	weight CDATA #IMPLIED>
+<!ELEMENT url (#PCDATA)>
+<!ELEMENT username (#PCDATA)>
+<!ELEMENT password (#PCDATA)>
+<!ELEMENT driverClassName (#PCDATA)>
+<!ELEMENT initialSize (#PCDATA)>
+<!ELEMENT maxActive (#PCDATA)>
+<!ELEMENT maxWait (#PCDATA)>
+<!ELEMENT maxIdle (#PCDATA)>
+<!ELEMENT minIdle (#PCDATA)>
+
+<!-- namenode -->
+<!ELEMENT namenode (datanodes?)>
+<!ATTLIST namenode 
+	id CDATA #REQUIRED
+	loadbalance (POLL|POLL_WEIGHT|RANDOM|RANDOM_WEIGHT|HA_RANDOM|HA_RANDOM_WEIGHT) "HA_RANDOM_WEIGHT">
+<!ELEMENT datanodes (datanode+)>
+
+<!-- table -->
+<!ELEMENT table (namenodes?,function?,columns?)>
+<!ATTLIST table 
+	name CDATA #REQUIRED
+	differ-name (TRUE|FALSE) "FALSE"
+	shard-type (TRUE|FALSE) "FALSE"
+	loadbalance (READONLY|WRITEONLY|READ-WRITE) "READ-WRITE">
+<!ELEMENT function EMPTY>
+<!ATTLIST function ref CDATA #REQUIRED>
+<!ELEMENT namenodes (namenode+)>
+<!ELEMENT columns (column+)>
+<!ELEMENT column EMPTY>
+<!ATTLIST column name CDATA #REQUIRED>
+
+
+
+
+

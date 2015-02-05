@@ -4,7 +4,10 @@ import java.io.File;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -12,6 +15,7 @@ import org.junit.Test;
 
 import com.bj58.oceanus.client.Oceanus;
 import com.bj58.oceanus.core.utils.RandomUtil;
+import com.bj58.oceanus.demo.entity.User;
 import com.bj58.oceanus.exchange.jdbc.ProviderDesc;
 
 /**
@@ -71,7 +75,65 @@ public class UserRwDemo {
 
 	@Test
 	public void selectTest() throws SQLException {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		String sql = "select * from t_user";
+		List<User> users = new ArrayList<User>();
 		
+		try {
+			connection = Oceanus.getConnection(new ProviderDesc() {
+				@Override
+				public String getNameNodeId() {
+					return "user_source1";
+				}
+			});
+			statement = connection.prepareStatement(sql);
+			resultSet = statement.executeQuery();
+			
+			while(resultSet.next()){
+				User user = new User();
+				user.setId(resultSet.getLong("id"));
+				user.setUname(resultSet.getString("uname"));
+				user.setAge(resultSet.getInt("age"));
+				users.add(user);
+			}
+			System.out.println(users.size());
+		} finally {
+			Oceanus.close(resultSet, statement, connection);
+		}
+	}
+	
+	@Test
+	public void selectTest1() throws SQLException {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		String sql = "SELECT AVG(age), MIN(age), MAX(age), age FROM t_user u GROUP BY u.age HAVING u.age > 20 ORDER BY u.age DESC LIMIT 0, 15";
+		
+		try {
+			connection = Oceanus.getConnection(new ProviderDesc() {
+				@Override
+				public String getNameNodeId() {
+					return "user_source1";
+				}
+			});
+			statement = connection.prepareStatement(sql);
+			resultSet = statement.executeQuery();
+			
+//			while(resultSet.next()){
+//				User user = new User();
+//				user.setId(resultSet.getLong("id"));
+//				user.setUname(resultSet.getString("uname"));
+//				user.setAge(resultSet.getInt("age"));
+//				System.out.println(user);
+//			}
+			while(resultSet.next()){
+				System.out.println(resultSet.getObject("age"));
+			}
+		} finally {
+			Oceanus.close(resultSet, statement, connection);
+		}
 	}
 	
 	@Test
