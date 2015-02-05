@@ -197,7 +197,7 @@ public class StatementContext {
 	 * 一个批次项，每次执行不管是不是batch都会创建一个 三种方式： 1.callback 2.event 3.statement
 	 * 一个BatchItem代表一个语句或者一个批次， 在分库分表里面，一条语句可能在多个库或者表里执行
 	 * 
-	 * @author luolishu
+	 * @author Service Platform Architecture Team (spat@58.com)
 	 * 
 	 */
 	public static class BatchItem {

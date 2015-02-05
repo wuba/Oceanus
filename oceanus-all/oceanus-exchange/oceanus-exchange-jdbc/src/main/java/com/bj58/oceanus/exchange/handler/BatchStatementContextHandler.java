@@ -30,6 +30,7 @@ import org.slf4j.LoggerFactory;
 import com.bj58.oceanus.core.context.StatementContext;
 import com.bj58.oceanus.core.context.StatementContext.BatchItem;
 import com.bj58.oceanus.core.context.StatementType;
+import com.bj58.oceanus.core.exception.ShardException;
 import com.bj58.oceanus.core.jdbc.ParameterCallback;
 import com.bj58.oceanus.core.shard.AnalyzeResult;
 import com.bj58.oceanus.core.shard.TableColumn;
@@ -60,8 +61,7 @@ class BatchStatementContextHandler implements StatementContextHandler<String> {
 						.parseStatement(batchItem.getSql());
 				batchItem.setStatementTreeNode(statementNode);
 			} catch (StandardException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new ShardException("sql parse error, sql:"+sql, e);
 			}
 			/**
 			 * 解析表信息

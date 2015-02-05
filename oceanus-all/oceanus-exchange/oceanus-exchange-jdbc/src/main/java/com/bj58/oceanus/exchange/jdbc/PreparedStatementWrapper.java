@@ -108,7 +108,7 @@ public class PreparedStatementWrapper extends StatementWrapper implements
 					return preparedStatement.executeQuery();
 				}
 			});
-		} catch (Error e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 			throw e;
 		} finally {

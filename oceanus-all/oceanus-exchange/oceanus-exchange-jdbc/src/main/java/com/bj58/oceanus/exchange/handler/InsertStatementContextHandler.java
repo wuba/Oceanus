@@ -29,18 +29,15 @@ import org.slf4j.LoggerFactory;
 
 import com.bj58.oceanus.core.context.StatementContext;
 import com.bj58.oceanus.core.context.StatementContext.BatchItem;
+import com.bj58.oceanus.core.exception.ShardException;
 import com.bj58.oceanus.core.jdbc.ParameterCallback;
 import com.bj58.oceanus.core.shard.AnalyzeResult;
 import com.bj58.oceanus.core.shard.TableColumn;
-import com.bj58.oceanus.exchange.builder.StatementHelper;
 import com.bj58.oceanus.exchange.nodes.Analyzers;
 import com.bj58.oceanus.exchange.nodes.NodeAnalyzer;
-import com.bj58.oceanus.exchange.unparse.NodeTreeToSql;
 import com.bj58.sql.parser.InsertNode;
 import com.bj58.sql.parser.QueryTreeNode;
-import com.bj58.sql.parser.RowResultSetNode;
 import com.bj58.sql.parser.RowsResultSetNode;
-import com.bj58.sql.parser.SQLParser;
 
 /**
  * InsertStatementContextHandler
@@ -58,7 +55,13 @@ public class InsertStatementContextHandler implements
 
 		BatchItem batchItem = context.getCurrentBatch();
 	
-		if (statementNode.getResultSetNode() instanceof RowsResultSetNode) {// 写入多列，先不考虑性能，这里会将所有rows从新拆分，然后按照batch的方式处理
+		if (statementNode.getResultSetNode() instanceof RowsResultSetNode) {
+			// insert into users(id, name, age) values(1, 'zhangsan', 20),(2, 'lisi', 19)
+			// 这种插入语句在sharding场景中无法保证路由唯一，通过约束要求不予支持
+			throw new ShardException("Do not support muti-insert in one sql! SQL:"+batchItem.getSql());
+			
+			/*
+			// 写入多列，先不考虑性能，这里会将所有rows从新拆分，然后按照batch的方式处理
 			Collection<ParameterCallback<?>> callbacks = batchItem
 					.getCallbacks();
 			RowsResultSetNode rowsNode = (RowsResultSetNode) statementNode
@@ -87,6 +90,7 @@ public class InsertStatementContextHandler implements
 					logger.error("generate sql error!", e);
 				}
 			}
+			*/
 		} else {
 			/**
 			 * 解析表信息
@@ -99,53 +103,6 @@ public class InsertStatementContextHandler implements
 			this.resetCallbacks(context.getBaches());
 		}
 		
-		return context;
-	}
-
-	public StatementContext handle(InsertNode statementNode, BatchItem batchItem) {
-		StatementContext context = StatementContext.getContext();
-
-		if (statementNode.getResultSetNode() instanceof RowsResultSetNode) {// 写入多列，先不考虑性能，这里会将所有rows从新拆分，然后按照batch的方式处理
-			Collection<ParameterCallback<?>> callbacks = batchItem
-					.getCallbacks();
-			RowsResultSetNode rowsNode = (RowsResultSetNode) statementNode
-					.getResultSetNode();
-			List<RowResultSetNode> rows = rowsNode.getRows();
-			List<RowResultSetNode> tempRows = new ArrayList<RowResultSetNode>(
-					rows);
-			for (int i = 0; i < tempRows.size(); i++) {
-				rows.clear();
-				rows.add(tempRows.get(i));
-				NodeTreeToSql sqlTree = new NodeTreeToSql();
-				try {
-					String sql = sqlTree.toString(statementNode);
-					SQLParser parser = StatementHelper.createSQLParser();
-					InsertNode insertNode = (InsertNode) parser
-							.parseStatement(sql);
-					if (i > 0) {// 刚开始不需要添加batch
-						context.addBatch(sql);
-					}
-					batchItem = context.getCurrentBatch();
-					batchItem.addAll(callbacks);
-					batchItem.setSql(sql);
-					batchItem.setStatementTreeNode(insertNode);
-					this.parseTableInfo(batchItem, insertNode);
-
-				} catch (Exception e) {
-					logger.error("generate sql error!", e);
-				}
-			}
-		} else {
-			/**
-			 * 解析表信息
-			 */
-			this.parseTableInfo(batchItem, statementNode);
-			batchItem.setStatementTreeNode(statementNode);
-		}
-
-		if (context.getBaches().size() > 1) {
-			this.resetCallbacks(context.getBaches());
-		} 
 		return context;
 	}
 

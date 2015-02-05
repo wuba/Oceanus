@@ -27,9 +27,7 @@ import com.bj58.oceanus.core.resource.DataNode;
 
 /**
  * 警报执行器
- * <p>
- * {@link #ALARMS} 中保存了数据源对应的警报实现类
- * </p>
+ * 
  * @author Service Platform Architecture Team (spat@58.com)
  */
 public final class AlarmExcutor {

@@ -6,6 +6,8 @@ package com.bj58.jdbc.parser.test;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.bj58.oceanus.core.script.InterpretedScriptExecutor;
+import com.bj58.oceanus.core.script.ScriptExecutor;
 import com.bj58.oceanus.core.shard.AnalyzeResult;
 import com.bj58.oceanus.core.shard.HavingInfo;
 import com.bj58.oceanus.core.shard.TableColumn;
@@ -146,6 +148,18 @@ public class TestParser {
 		System.out.println(nodeToStr.toString(valueNode));
 		System.out.println(nodeToStr.toString(node));
 	}
+	
+	@Test
+	public void testHaving1() throws Exception {
+		String sql = "SELECT AVG(age), MIN(age), MAX(age), age FROM t_user GROUP BY age HAVING age > 20 ORDER BY age DESC LIMIT 0, 15";
+		SQLParser parser = new SQLParser();
+		CursorNode node = (CursorNode) parser.parseStatement(sql);
+		Assert.assertNotNull(node);
+		SelectNode selectNode = (SelectNode) node.getResultSetNode();
+		ValueNode valueNode = selectNode.getHavingClause();
+		
+		ScriptExecutor<Boolean> executor = new InterpretedScriptExecutor<Boolean>();
+	}
 
 	@Test
 	public void testHavingExp() {
@@ -222,10 +236,12 @@ public class TestParser {
 		String sql8 = "{call proc1(?, ?, ?)}";
 		String sql9 = "select * from usertable u, infotable i where u.uid=i.uid and u.uid=?";
 		String sql10 = "SELECT * FROM CreditItem WHERE uid=? ORDER BY addtime desc LIMIT ?,?";
+		String sql11 = "insert into users(id, name, age) values(1, 'zhangsan', 20)";
+		String sql12 = "insert into users(id, name, age) values(1, 'zhangsan', 20),(2, 'lisi', 19)";
 		
 		
 		
-		String[] sqls = {sql1,sql2,sql3,sql4,sql5,sql6,sql7,sql8, sql9, sql10};
+		String[] sqls = {sql1,sql2,sql3,sql4,sql5,sql6,sql7,sql8, sql9, sql10, sql11, sql12};
 		
 		
 		for(String sql : sqls){

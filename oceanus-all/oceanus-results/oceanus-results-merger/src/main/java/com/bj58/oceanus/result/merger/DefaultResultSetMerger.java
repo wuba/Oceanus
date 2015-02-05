@@ -34,6 +34,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.script.ScriptException;
@@ -221,17 +222,18 @@ public class DefaultResultSetMerger implements ResultSetMerger {
 			return results;
 		}
 		Map<String, TableColumn> columnsMap = new HashMap<String, TableColumn>();
-		for (TableColumn column : analyzeResult.getAggregateColumns()) {
-			String key = column.getAggregate() + column.getName();
+		for (TableColumn column : analyzeResult.getResultColumns()) {
+			String key = this.getTableColumnKey(column);
+			columnsMap.put(column.getName(), column);
 			columnsMap.put(key, column);
-			key = column.getAggregateNodeContent();
-			if (!columnsMap.containsKey(key)) {
-				columnsMap.put(key, column);
-			}
+//			key = column.getAggregateNodeContent();
+//			if (!columnsMap.containsKey(key)) {
+//				columnsMap.put(key, column);
+//			}
 		}
 		HavingInfo havingInfo = analyzeResult.getHavingInfo();
 		for (TableColumn column : havingInfo.getAggregateColumns()) {
-			String key = column.getAggregate() + column.getName();
+			String key = this.getTableColumnKey(column);
 			TableColumn resultColumn = columnsMap.get(key);
 			if (resultColumn == null) {
 				key = column.getAggregateNodeContent();
@@ -245,7 +247,7 @@ public class DefaultResultSetMerger implements ResultSetMerger {
 		while (iterator.hasNext()) {
 			RowSet row = iterator.next();
 			Map<String, Object> contextMap = this.createScriptContextMap(
-					havingInfo.getAggregateColumns(), row);
+					columnsMap, row);
 			try {
 				if (!scriptExecutor.execute(scriptExp, contextMap)) {
 					iterator.remove();
@@ -259,19 +261,43 @@ public class DefaultResultSetMerger implements ResultSetMerger {
 		return results;
 
 	}
+	
+	private String getTableColumnKey(TableColumn column){
+		StringBuilder builder = new StringBuilder(column.getName());
+		
+		if(column.getTable() != null){
+			builder.insert(0, ".");
+			builder.insert(0, column.getTable());
+		}
+		
+		if(column.getAggregate() != null){
+//			builder.insert(0, column.getAggregate());
+//			builder.insert(column.getAggregate().length(), "(");
+//			builder.append(")");
+			builder.delete(0, builder.length());
+			builder.append(column.getAggregateNodeContent().replaceAll("[\\[|\\]]", ""));
+		}
+		return builder.toString();
+	}
 
 	private Map<String, Object> createScriptContextMap(
-			Collection<TableColumn> columns, RowSet row) {
+			Map<String, TableColumn> columnsMap, RowSet row) {
 		Map<String, Object> context = new HashMap<String, Object>();
-		for (TableColumn column : columns) {
+		for (Iterator<Entry<String, TableColumn>> it = columnsMap.entrySet().iterator();
+				it.hasNext();) {
+			Entry<String, TableColumn> entry = it.next();
 			Object value;
 			try {
-				value = row.getObject(column.getResultIndex());
+				if(row.getObject(entry.getKey()) != null){
+					value = row.getObject(entry.getValue().getResultIndex());
+					
+					context.put(entry.getKey().toUpperCase(), value);
+					context.put("$" + entry.getValue().getResultIndex(), value);
+				}
 			} catch (SQLException e) {
 				logger.error("get value error!", e);
-				throw new ShardException("having error!column=" + column, e);
+				throw new ShardException("having error!column=" + entry.getValue(), e);
 			}
-			context.put("$" + column.getResultIndex(), value);
 		}
 
 		return context;

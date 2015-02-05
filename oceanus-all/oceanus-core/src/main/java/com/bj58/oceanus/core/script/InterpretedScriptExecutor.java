@@ -20,6 +20,7 @@
  */
 package com.bj58.oceanus.core.script;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.script.Bindings;
@@ -53,6 +54,10 @@ public class InterpretedScriptExecutor<T> implements ScriptExecutor<T> {
 		String exp = "var result=(1 >0 && 2>99||1==1);result";
 		Object value = executor.execute(exp, null);
 		System.out.println("value=" + value);
-
+		
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("a", "5");
+		boolean result = executor.execute("a < 1", parameters);
+		System.out.println(result);
 	}
 }
