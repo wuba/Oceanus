@@ -22,6 +22,8 @@ package com.bj58.oceanus.core.resource;
 
 import java.util.List;
 
+import com.google.common.base.Objects;
+
 /**
  * NameNode 实例持有者
  * 
@@ -99,6 +101,17 @@ public class NameNodeHolder implements NameNode {
 
 	public void setIndex(int index) {
 		this.index = index;
+	}
+	
+	@Override
+	public String toString() {
+		return Objects.toStringHelper(this)
+				.add("schema", schema)
+				.add("orgTableName", orgTableName)
+				.add("tableName", tableName)
+				.add("index", index)
+				.add("nameNode", nameNode.getId())
+				.toString();
 	}
 
 }

@@ -28,7 +28,6 @@ import java.util.Map;
 
 import com.bj58.oceanus.core.resource.DataNode;
 import com.bj58.oceanus.core.shard.RouteTarget;
-import com.bj58.oceanus.core.shard.TableInfo;
 import com.bj58.oceanus.core.utils.JdbcUtil;
 import com.bj58.oceanus.core.utils.Transporter;
 import com.google.common.collect.Lists;
@@ -91,15 +90,13 @@ public class TransactionContext {
 	
 	public Statement getTransactionStatement(Connection connection, 
 			RouteTarget target) {
-		TableInfo tableInfo = target.getBatchItem().getAnalyzeResult().getTableInfos().iterator().next();
-		return stmtsInTransaction.get(connection.toString() + tableInfo.getName());
+		return stmtsInTransaction.get(connection.toString() + target.getNameNode().toString());
 	}
 
 	public void setTransactionStatement(Connection connection, 
 			RouteTarget target, Statement statement) {
 		
-		TableInfo tableInfo = target.getBatchItem().getAnalyzeResult().getTableInfos().iterator().next();
-		stmtsInTransaction.put(connection.toString() + tableInfo.getName(), statement);
+		stmtsInTransaction.put(connection.toString() + target.getNameNode().toString(), statement);
 		sqlsInTransaction.add(target.getExecuteInfo().getExecuteSql());
 	}
 	
