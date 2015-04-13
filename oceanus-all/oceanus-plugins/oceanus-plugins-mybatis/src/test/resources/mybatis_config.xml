@@ -13,7 +13,7 @@
 			<transactionManager type="JDBC">
 			</transactionManager>
 			<dataSource type="com.bj58.oceanus.plugins.mybatis.datasource.OceanusDataSourceFactory">
-				<property name="driver" value="com.mysql.jdbc.Driver" />
+				<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 				<property name="url" value="jdbc:mysql://192.168.123.148:58885/test_oceanus" />
 				<property name="username" value="oceanus_tester" />
 				<property name="password" value="123456" />
