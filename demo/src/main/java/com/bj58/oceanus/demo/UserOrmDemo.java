@@ -49,6 +49,12 @@ public class UserOrmDemo extends BaseDao{
 		}
 	}
 	
+	@Test
+	public void selectTest1() throws Exception {
+		String sql = "select * from t_user where id=? or id=?";
+		List<User> users = super.excuteQuery(User.class, sql, 1,2);
+	}
+	
 
 	@After
 	public void after() {

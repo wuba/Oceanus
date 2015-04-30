@@ -10,7 +10,7 @@
 		table 标签定义逻辑表映射，由oceanus解析到的表名，映射并重写，路由到分库环境中运行
 			属性：name（必填）声明table名字，当命中sql中的table name时，就会按照配置的逻辑进行路由
 			属性：differ-name（必填）sql中的表名是否与DB中的一致，是否需要重写
-			属性：shard-type（必填）分库分表类型
+			属性：shard-type（必填）分库分表类型。BY-DATABASE 表示按数据库进行划分。 BY-TABLE 表示按表划分。 BY-DATABASE-TABLE 表示按库和表划分。 NO-SHARD 表示不分库分表
 			属性：threadpool （必填）为该table指定使用哪个线程池进行异步操作
 			子节点：columns 内部填充column列表
 				子节点：column 指定用于sharding逻辑的字段
@@ -23,13 +23,13 @@
 				属性：ref （必填）指向sharding函数 id
 			
 	-->
-	<table name="t_user" differ-name="false" shard-type="BY_DATABASE_TABLE" threadpool="default">
+	<table name="t_user" differ-name="true" shard-type="BY_TABLE" threadpool="default">
 		<columns>
 			<column name="id"/>
 		</columns>
 		<namenodes>
-			<namenode ref="user_source1" tablename="t_user"/>
-			<namenode ref="user_source2" tablename="t_user"/>
+			<namenode ref="user_source1" tablename="t_user1"/>
+			<namenode ref="user_source1" tablename="t_user2"/>
 		</namenodes>
 		
 		<function ref="userShardFunc" />

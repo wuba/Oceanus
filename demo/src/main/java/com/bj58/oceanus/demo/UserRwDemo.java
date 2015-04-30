@@ -159,5 +159,14 @@ public class UserRwDemo {
 	public void after() {
 
 	}
+	
+	public static void main(String[] args) throws SQLException {
+		UserRwDemo demo = new UserRwDemo();
+		demo.before();
+		while(true){
+			demo.insertTest();
+			demo.deleteTest();
+		}
+	}
 
 }

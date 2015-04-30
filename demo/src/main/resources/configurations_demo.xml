@@ -27,6 +27,6 @@
 			class值为 tracker的子类
 	-->
 	<tracker type="EXECUTE_SQL" threshold="2000" class="com.bj58.oceanus.demo.trackers.ExecuteSqlTracker" />
-	<tracker type="PARSE_SQL" threshold="-1" class="com.bj58.oceanus.demo.trackers.ParseSqlTracker" />
+	<tracker type="PARSE_SQL" threshold="100" class="com.bj58.oceanus.demo.trackers.ParseSqlTracker" />
 
 </configurations>
