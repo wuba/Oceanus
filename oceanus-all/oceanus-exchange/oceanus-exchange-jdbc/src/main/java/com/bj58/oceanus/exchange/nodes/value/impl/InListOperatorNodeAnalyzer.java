@@ -75,7 +75,7 @@ public class InListOperatorNodeAnalyzer extends
 			column.setValue(NodeHelper.getValue(item));
 			if (item instanceof ParameterNode) {
 				ParameterNode parNode = (ParameterNode) item;
-				column.setPreparedIndex(parNode.getParameterNumber());
+				column.setPreparedIndex(parNode.getParameterNumber()+1);
 			}
 		}
 		result.addConditionColumns(columns);
