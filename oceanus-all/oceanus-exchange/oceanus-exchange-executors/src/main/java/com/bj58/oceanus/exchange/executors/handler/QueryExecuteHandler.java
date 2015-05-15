@@ -75,7 +75,7 @@ public class QueryExecuteHandler extends BaseExecuteHandler<ResultSet>
 				
 			statement = transactionContext.getTransactionStatement(connection, target);
 			
-			if(statement == null){
+			if(statement == null || statement.isClosed()){
 				statement = this.createStatement(connection, target, context);
 				
 				TransactionContext.getContext().setTransactionStatement(connection, target, statement);

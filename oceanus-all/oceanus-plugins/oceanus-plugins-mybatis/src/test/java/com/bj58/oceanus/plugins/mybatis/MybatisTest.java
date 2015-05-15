@@ -47,7 +47,7 @@ public class MybatisTest {
 	@Test
 	public void insertTest() throws SQLException {
 		for(long id=1; id<=100; id++){
-			SqlSession session = sqlSessionFactory.openSession(ExecutorType.BATCH);
+			SqlSession session = sqlSessionFactory.openSession(false);
 			int result = -1;
 			try {
 				result = session.insert("com.bj58.oceanus.plugins.mybatis.entity.UserMapper.insertUser", new User(id, "uname"+id, RandomUtil.nextInt(10, 30)));
