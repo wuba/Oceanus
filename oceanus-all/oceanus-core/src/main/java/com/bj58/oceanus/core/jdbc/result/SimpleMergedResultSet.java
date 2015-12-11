@@ -740,7 +740,7 @@ public class SimpleMergedResultSet implements ResultSet,LifeCycle{
 	 */
 	@Override
 	public int getType() throws SQLException {
-		throw new UnsupportedOperationException();
+		return currentResultSet.getType();
 	}
 
 	/*
