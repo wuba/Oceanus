@@ -10,9 +10,8 @@
 	<packaging>pom</packaging>
 	
 	<modules>
-<!-- 
-		<module>oceanus-plugins-alarm</module>
- -->
+	  <module>oceanus-plugins-hibernate</module>
+          <module>oceanus-plugins-mybatis</module>
 	</modules>
 
 </project>
